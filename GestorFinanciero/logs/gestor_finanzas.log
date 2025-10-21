@@ -1,0 +1,25 @@
+2025-10-21T12:01:58.627-05:00  INFO 16072 --- [GestorFinanciero] [main] p.e.u.g.GestorFinancieroApplication      : Starting GestorFinancieroApplication using Java 17.0.16 with PID 16072 (D:\viruzpegriloso\SIST-C2G2-POO-GestorFinanzas\GestorFinanciero\target\classes started by SOFTWARE in D:\viruzpegriloso\SIST-C2G2-POO-GestorFinanzas\GestorFinanciero)
+2025-10-21T12:01:58.630-05:00  INFO 16072 --- [GestorFinanciero] [main] p.e.u.g.GestorFinancieroApplication      : No active profile set, falling back to 1 default profile: "default"
+2025-10-21T12:01:59.296-05:00  INFO 16072 --- [GestorFinanciero] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-21T12:01:59.313-05:00  INFO 16072 --- [GestorFinanciero] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 JPA repository interfaces.
+2025-10-21T12:01:59.661-05:00  INFO 16072 --- [GestorFinanciero] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-21T12:01:59.717-05:00  INFO 16072 --- [GestorFinanciero] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-10-21T12:01:59.751-05:00  INFO 16072 --- [GestorFinanciero] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-21T12:02:00.010-05:00  INFO 16072 --- [GestorFinanciero] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-21T12:02:00.037-05:00  INFO 16072 --- [GestorFinanciero] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-21T12:02:00.205-05:00  INFO 16072 --- [GestorFinanciero] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@5efeb117
+2025-10-21T12:02:00.208-05:00  INFO 16072 --- [GestorFinanciero] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-21T12:02:00.248-05:00  INFO 16072 --- [GestorFinanciero] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 3.46
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-21T12:02:00.757-05:00  INFO 16072 --- [GestorFinanciero] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-21T12:02:00.762-05:00  INFO 16072 --- [GestorFinanciero] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-21T12:02:00.993-05:00  INFO 16072 --- [GestorFinanciero] [main] p.e.u.g.GestorFinancieroApplication      : Started GestorFinancieroApplication in 2.926 seconds (process running for 3.913)
+2025-10-21T12:02:01.002-05:00  INFO 16072 --- [GestorFinanciero] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-21T12:02:01.006-05:00  INFO 16072 --- [GestorFinanciero] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-21T12:02:01.009-05:00  INFO 16072 --- [GestorFinanciero] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
