@@ -1,4 +1,4 @@
-package pe.edu.upeu.sysgfinanzas.components;
+package pe.edu.upeu.gestorfinanciero.components;
 
 public class ColumnInfo {
     private String field;  // El nombre del campo en el modelo

@@ -23,3 +23,28 @@
 2025-10-21T12:02:01.002-05:00  INFO 16072 --- [GestorFinanciero] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-10-21T12:02:01.006-05:00  INFO 16072 --- [GestorFinanciero] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-10-21T12:02:01.009-05:00  INFO 16072 --- [GestorFinanciero] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-10-21T20:42:43.661-05:00  INFO 1481 --- [GestorFinanciero] [main] p.e.u.g.GestorFinancieroApplication      : Starting GestorFinancieroApplication using Java 24.0.2 with PID 1481 (/Users/deysicruzm/Documents/Programacion_25/GITHUB/SIST-C2G2-POO-GestorFinanzas/GestorFinanciero/target/classes started by deysicruzm in /Users/deysicruzm/Documents/Programacion_25/GITHUB/SIST-C2G2-POO-GestorFinanzas/GestorFinanciero)
+2025-10-21T20:42:43.674-05:00  INFO 1481 --- [GestorFinanciero] [main] p.e.u.g.GestorFinancieroApplication      : No active profile set, falling back to 1 default profile: "default"
+2025-10-21T20:42:43.903-05:00  INFO 1481 --- [GestorFinanciero] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-21T20:42:43.910-05:00  INFO 1481 --- [GestorFinanciero] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 JPA repository interfaces.
+2025-10-21T20:42:44.015-05:00  INFO 1481 --- [GestorFinanciero] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-21T20:42:44.028-05:00  INFO 1481 --- [GestorFinanciero] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-10-21T20:42:44.037-05:00  INFO 1481 --- [GestorFinanciero] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-21T20:42:44.108-05:00  INFO 1481 --- [GestorFinanciero] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-21T20:42:44.122-05:00  INFO 1481 --- [GestorFinanciero] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-21T20:42:44.626-05:00  INFO 1481 --- [GestorFinanciero] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@721d5b74
+2025-10-21T20:42:44.627-05:00  INFO 1481 --- [GestorFinanciero] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-21T20:42:44.639-05:00  INFO 1481 --- [GestorFinanciero] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 3.46
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-21T20:42:44.781-05:00  INFO 1481 --- [GestorFinanciero] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-21T20:42:44.782-05:00  INFO 1481 --- [GestorFinanciero] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-21T20:42:44.841-05:00  INFO 1481 --- [GestorFinanciero] [main] p.e.u.g.GestorFinancieroApplication      : Started GestorFinancieroApplication in 1.352 seconds (process running for 1.49)
+2025-10-21T20:42:44.844-05:00  INFO 1481 --- [GestorFinanciero] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-21T20:42:44.845-05:00  INFO 1481 --- [GestorFinanciero] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-21T20:42:44.873-05:00  INFO 1481 --- [GestorFinanciero] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

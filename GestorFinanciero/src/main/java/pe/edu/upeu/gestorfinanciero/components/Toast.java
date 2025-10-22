@@ -1,4 +1,4 @@
-package pe.edu.upeu.sysgfinanzas.components;
+package pe.edu.upeu.gestorfinanciero.components;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

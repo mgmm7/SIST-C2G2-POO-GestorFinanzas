@@ -1,4 +1,4 @@
-package pe.edu.upeu.sysgfinanzas.components;
+package pe.edu.upeu.gestorfinanciero.components;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.embed.swing.SwingFXUtils;
