@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 import pe.edu.upeu.gestorfinanciero.model.Perfil;
 import pe.edu.upeu.gestorfinanciero.model.Usuario;
 
-public interface UsuarioRepository extends CrudRepository<Perfil, Long> {
+public interface UsuarioRepository extends ICrudGenericoRepository<Usuario, Long> {
     @Query(value = "SELECT u.* FROM upeu_usuario u WHERE u.user=:userx ",
             nativeQuery = true)
     Usuario buscarUsuario(@Param("userx") String userx);
