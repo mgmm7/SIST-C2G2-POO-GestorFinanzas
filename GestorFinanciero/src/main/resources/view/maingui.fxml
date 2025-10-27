@@ -5,7 +5,23 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="pe.edu.upeu.gestorfinanciero.controller.MainGuiController">
     <top>
-        <MenuBar BorderPane.alignment="CENTER" fx:id="menuBarFx">
+        <MenuBar fx:id="menuBarFx" BorderPane.alignment="CENTER">
+
+            <Menu text="Archivo">
+                <MenuItem text="Cerrar Sesión"
+                          onAction="#cerrarSesion"/>
+
+                <MenuItem text="Salir"
+                          onAction="#salir"/>
+
+            </Menu>
+
+            <Menu text="Usuarios">
+                <MenuItem text="Gestión de Usuarios">
+
+                </MenuItem>
+            </Menu>
+
         </MenuBar>
     </top>
     <center>
@@ -14,3 +30,4 @@
         </TabPane>
     </center>
 </BorderPane>
+
