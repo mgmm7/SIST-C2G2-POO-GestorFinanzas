@@ -1,0 +1,6 @@
+.text-field-error {
+    -fx-border-color: red;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-color: #ffe6e6;
+}
