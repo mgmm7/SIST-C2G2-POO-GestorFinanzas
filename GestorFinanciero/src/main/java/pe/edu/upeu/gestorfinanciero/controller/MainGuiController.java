@@ -33,32 +33,14 @@ public class MainGuiController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //crearMenuPrincipal();
+        MenuPrincipal();
     }
-
-    private void crearMenuPrincipal() {
+    private void MenuPrincipal() {
         Menu menuPrincipal = new Menu("Principal");
 
-        MenuItem Inicio = new MenuItem("Inicio");
-        Inicio.setOnAction(e -> abrirPestaña("inicio", null, "Inicio"));
-        
-        MenuItem CerrarSesion = new MenuItem("Cerrar Sesión");
-        CerrarSesion.setOnAction(e -> cerrarSesion());
+        MenuItem Usuario = new MenuItem("Usuario");
+        Usuario.setOnAction(e -> abrirPestaña("usuario", "/view/main_editar.fxml","Gestión de Usuarios"));
 
-        MenuItem Salir = new MenuItem("Salir");
-        Salir.setOnAction(e -> salir());
-
-        menuPrincipal.getItems().addAll(Inicio, new SeparatorMenuItem(), CerrarSesion,Salir);
-
-        Menu menuGestion = new Menu("Gestión");
-
-        MenuItem Usuarios = new MenuItem("Usuarios");
-        Usuarios.setOnAction(e -> abrirPestaña("usuarios", "/view/main_usuario.fxml", "Gestión de Usuarios"));
-
-        menuGestion.getItems().addAll(Usuarios);
-
-        // Agregar ambos menús a la barra
-        menuBarFx.getMenus().addAll(menuPrincipal, menuGestion);
     }
 
     private void abrirPestaña(String id, String rutaFXML, String titulo) {
@@ -119,5 +101,10 @@ public class MainGuiController implements Initializable {
     private void abrirUsuario() {
 
     }
+    @FXML
+    private void abrirGestionUsuarios() {
+        abrirPestaña("usuarios", "/view/main_editar.fxml", "Gestión de Usuarios varios");
+    }
+
 
 }
