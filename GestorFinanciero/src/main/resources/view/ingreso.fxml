@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pe.edu.upeu.gestorfinanciero.controller.IngresoController">
+
+    <children>
+        <!-- Título -->
+        <Label text="Registro de Ingresos" layoutX="20" layoutY="15"
+               style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+        <!-- Panel de registro -->
+        <VBox layoutX="20" layoutY="50" spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <HBox spacing="10">
+                <Label text="Monto:"/>
+                <TextField fx:id="txtMonto" promptText="Monto del ingreso" prefWidth="120"/>
+                <Label text="Descripción:"/>
+                <TextField fx:id="txtDescripcion" promptText="Motivo o fuente" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Button text="Registrar" onAction="#registrarIngreso" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                <Button text="Editar" onAction="#editarIngreso" style="-fx-background-color: #FFC107; -fx-text-fill: black;"/>
+                <Button text="Eliminar" onAction="#eliminarIngreso" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+            </HBox>
+
+            <!-- ✅ Renombrado para evitar conflicto -->
+            <Label fx:id="lblSaldoIngreso" text="Saldo actual: S/ 0.00"
+                   style="-fx-font-weight: bold; -fx-text-fill: #333;"/>
+        </VBox>
+
+        <!-- Tabla de ingresos -->
+        <TableView fx:id="tablaIngresos" layoutX="20" layoutY="210"
+                   prefWidth="600" prefHeight="280">
+
+            <columns>
+                <TableColumn fx:id="colFecha" text="Fecha" prefWidth="100"/>
+                <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="180"/>
+                <TableColumn fx:id="colMonto" text="Monto (S/)" prefWidth="120"/>
+                <TableColumn fx:id="colSaldo" text="Saldo" prefWidth="120"/>
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

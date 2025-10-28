@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pe.edu.upeu.gestorfinanciero.controller.ReporteController">
+    <children>
+        <Label text="Reporte General" layoutX="20" layoutY="20"
+               style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+        <HBox layoutX="20" layoutY="60" spacing="30">
+            <Label fx:id="lblTotalIngresos" style="-fx-text-fill: green; -fx-font-size: 14;"/>
+            <Label fx:id="lblTotalEgresos" style="-fx-text-fill: red; -fx-font-size: 14;"/>
+            <Label fx:id="lblSaldoActual" style="-fx-text-fill: blue; -fx-font-size: 14; -fx-font-weight: bold;"/>
+        </HBox>
+
+        <TableView fx:id="tablaMovimientos" layoutX="20" layoutY="100" prefWidth="700" prefHeight="300"/>
+        <Label text="Detalles:" layoutX="750" layoutY="100" style="-fx-font-weight: bold;"/>
+        <TextArea fx:id="txtDetalles" layoutX="750" layoutY="130" prefWidth="300" prefHeight="270"
+                  wrapText="true" editable="false"/>
+    </children>
+</AnchorPane>

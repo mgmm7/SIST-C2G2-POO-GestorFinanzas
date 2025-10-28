@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pe.edu.upeu.gestorfinanciero.controller.LoginController">
+    <children>
+        <Label text="Gestor Financiero - Login" layoutX="100" layoutY="30"/>
+        <TextField fx:id="txtUsuario" layoutX="80" layoutY="80" promptText="Usuario"/>
+        <PasswordField fx:id="txtClave" layoutX="80" layoutY="120" promptText="Contraseña"/>
+        <Button text="Ingresar" onAction="#login" layoutX="80" layoutY="170"/>
+    </children>
+</AnchorPane>

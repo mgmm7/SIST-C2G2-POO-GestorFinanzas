@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pe.edu.upeu.gestorfinanciero.controller.MainController"
+            fx:id="mainPane">
+    <left>
+        <VBox fx:id="menuLateral" spacing="10" style="-fx-background-color: #2B2D42; -fx-padding: 10;">
+            <children>
+                <Button text="Usuario" onAction="#abrirUsuario" prefWidth="150"/>
+                <Button text="Ingresos" onAction="#abrirIngresos" prefWidth="150"/>
+                <Button text="Egresos" onAction="#abrirEgresos" prefWidth="150"/>
+                <Button text="Movimiento de saldo" onAction="#abrirMovimientos" prefWidth="150"/>
+                <Button text="Reporte" onAction="#abrirReporte" prefWidth="150"/>
+                <Button text="Meta / Ahorro" onAction="#abrirMeta" prefWidth="150"/>
+                <Button text="Configuración" onAction="#abrirConfiguracion" prefWidth="150"/>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <AnchorPane fx:id="contenidoCentral" />
+    </center>
+</BorderPane>
