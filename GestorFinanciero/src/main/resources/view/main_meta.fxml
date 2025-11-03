@@ -5,30 +5,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="miContenedor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pe.edu.upeu.gestorfinanciero.controller.MetaController">
+<AnchorPane fx:id="miContenedor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.upeu.gestorfinanciero.controller.MetaController">
     <children>
-        <VBox layoutX="14.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-              AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
-              AnchorPane.topAnchor="5.0">
+        <VBox layoutX="14.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
             <children>
                 <AnchorPane>
                     <children>
                         <Label layoutX="14.0" layoutY="14.0" text="Metas de ahorro">
                             <font>
-                                <Font name="System Bold" size="18.0"/>
+                                <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
-                        <Label layoutX="332.0" layoutY="41.0" text="Filtrar Meta"/>
-                        <TextField fx:id="txtFiltroDato" layoutX="332.0" layoutY="61.0" prefHeight="26.0"
-                                   prefWidth="191.0"/>
-                        <Button layoutX="531.0" layoutY="62.0" mnemonicParsing="false"
-                                styleClass="btn, btn-lg, btn-success" text="Buscar"/>
-                        <Label fx:id="idPrueba" layoutX="605.0" layoutY="66.0" text=":"/>
+                        <Label layoutX="332.0" layoutY="41.0" text="Filtrar Meta" />
+                        <TextField fx:id="txtFiltroDato" layoutX="332.0" layoutY="61.0" prefHeight="26.0" prefWidth="191.0" />
+                        <Button layoutX="531.0" layoutY="62.0" mnemonicParsing="false" styleClass="btn, btn-lg, btn-success" text="Buscar" />
+                        <Label fx:id="idPrueba" layoutX="605.0" layoutY="66.0" text=":" />
+                  <Label fx:id="lblUsuario" layoutX="14.0" layoutY="66.0" text=":" textFill="#15f236">
+                     <font>
+                        <Font name="Bell MT" size="12.0" />
+                     </font>
+                  </Label>
                     </children>
                     <padding>
-                        <Insets bottom="5.0"/>
+                        <Insets bottom="5.0" />
                     </padding>
                 </AnchorPane>
                 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
@@ -37,94 +36,77 @@
                             <children>
                                 <GridPane layoutY="5.0">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.0" minWidth="10.0"
-                                                           prefWidth="108.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0"
-                                                           prefWidth="120.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0"
-                                                           prefWidth="120.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0"
-                                                           prefWidth="106.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.0" minWidth="10.0" prefWidth="108.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0" prefWidth="106.0" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="391.0"
-                                               text="Registrar Meta" textAlignment="CENTER" GridPane.columnSpan="4"
-                                               GridPane.halignment="CENTER">
+                                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="391.0" text="Registrar Meta" textAlignment="CENTER" GridPane.columnSpan="4" GridPane.halignment="CENTER">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
                                         <Label text="Nombre Meta" GridPane.rowIndex="1">
                                             <GridPane.margin>
-                                                <Insets left="5.0"/>
+                                                <Insets left="5.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <TextField fx:id="txtNombreMeta" GridPane.columnIndex="1"
-                                                   GridPane.columnSpan="3" GridPane.rowIndex="1">
+                                        <TextField fx:id="txtNombreMeta" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                                             <GridPane.margin>
-                                                <Insets right="5.0"/>
+                                                <Insets right="5.0" />
                                             </GridPane.margin>
                                         </TextField>
                                         <Label text="Monto objetivo" GridPane.rowIndex="2">
                                             <GridPane.margin>
-                                                <Insets left="5.0"/>
+                                                <Insets left="5.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <TextField fx:id="txtMObjetivo" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                        <Label text="Monto actual" textAlignment="CENTER" GridPane.columnIndex="2"
-                                               GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                        <TextField fx:id="txtMObjetivo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label text="Monto actual" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                             <padding>
-                                                <Insets left="5.0"/>
+                                                <Insets left="5.0" />
                                             </padding>
                                         </Label>
                                         <TextField fx:id="txtMActual" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                             <GridPane.margin>
-                                                <Insets right="5.0"/>
+                                                <Insets right="5.0" />
                                             </GridPane.margin>
                                         </TextField>
                                         <Label text="F. Registro" GridPane.rowIndex="3">
                                             <GridPane.margin>
-                                                <Insets left="5.0"/>
+                                                <Insets left="5.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <Label text="F. Límite" GridPane.columnIndex="2" GridPane.halignment="CENTER"
-                                               GridPane.rowIndex="3">
+                                        <Label text="F. Límite" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                             <GridPane.margin>
-                                                <Insets left="5.0" right="5.0"/>
+                                                <Insets left="5.0" right="5.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <DatePicker fx:id="dpFRegistro" disable="true" GridPane.columnIndex="1"
-                                                    GridPane.rowIndex="3"/>
-                                        <DatePicker fx:id="dpFLimite" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
-                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                                                onAction="#validarFormulario" styleClass="btn, btn-lg, btn-primary"
-                                                text="Guardar" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                        <DatePicker fx:id="dpFRegistro" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <DatePicker fx:id="dpFLimite" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#validarFormulario" styleClass="btn, btn-lg, btn-primary" text="Guardar" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <GridPane.margin>
-                                                <Insets bottom="5.0" top="5.0"/>
+                                                <Insets bottom="5.0" top="5.0" />
                                             </GridPane.margin>
                                         </Button>
-                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                                                onAction="#clearForm" styleClass="btn, btn-lg, btn-danger"
-                                                text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clearForm" styleClass="btn, btn-lg, btn-danger" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="4">
                                             <GridPane.margin>
-                                                <Insets bottom="5.0" left="5.0" top="5.0"/>
+                                                <Insets bottom="5.0" left="5.0" top="5.0" />
                                             </GridPane.margin>
                                         </Button>
-                                        <Label fx:id="lbnMsg" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308"
-                                               maxWidth="1.7976931348623157E308" text=":"
-                                               GridPane.columnSpan="2147483647" GridPane.halignment="LEFT"
-                                               GridPane.rowIndex="5" GridPane.rowSpan="2" GridPane.valignment="TOP">
+                                        <Label fx:id="lbnMsg" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text=":" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.rowSpan="2" GridPane.valignment="TOP">
                                             <GridPane.margin>
-                                                <Insets left="5.0" top="5.0"/>
+                                                <Insets left="5.0" top="5.0" />
                                             </GridPane.margin>
                                         </Label>
                                     </children>
@@ -133,8 +115,7 @@
                         </AnchorPane>
                         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                             <children>
-                                <TableView fx:id="tableView" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
-                                           AnchorPane.topAnchor="5.0"/>
+                                <TableView fx:id="tableView" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                             </children>
                         </AnchorPane>
                     </children>

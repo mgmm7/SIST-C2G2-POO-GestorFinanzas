@@ -41,7 +41,7 @@ public class MetaController {
     @FXML
     private TableView<Meta> tableView;
     @FXML
-    Label lbnMsg, idPrueba;
+    Label lbnMsg, idPrueba, lblUsuario;
     @FXML
     private AnchorPane miContenedor;
     Stage stage;
@@ -104,6 +104,9 @@ public class MetaController {
 
     @FXML
     public void initialize() {
+        Usuario usuarioActual = usuarioIService.findById(1L);
+        lblUsuario.setText("Conectado como: " + usuarioActual.getNombre());
+
         dpFRegistro.setValue(LocalDate.now());
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2000),
                 event -> {
@@ -275,12 +278,12 @@ public class MetaController {
         }
     }
 
-    private double parseDoubleSafe(String value) {
+    /*private double parseDoubleSafe(String value) {
         if (value == null || value.trim().isEmpty()) return 0.0;
         try {
             return Double.parseDouble(value.trim());
         } catch (NumberFormatException e) {
             return 0.0;
         }
-    }
+    }*/
 }
