@@ -1,18 +1,15 @@
-2025-10-28T00:02:55.469-05:00  INFO 22884 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:02:55.474-05:00  INFO 22884 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-10-28T00:02:55.477-05:00  INFO 22884 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-10-28T00:03:39.807-05:00  INFO 10748 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Starting application using Java 17.0.16 with PID 10748 (started by MAYKOL in D:\Gestor de Finanzas\SIST-C2G2-POO-GestorFinanzas\GestorFinanciero)
-2025-10-28T00:03:39.812-05:00  INFO 10748 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : No active profile set, falling back to 1 default profile: "default"
-2025-10-28T00:03:40.248-05:00  INFO 10748 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-10-28T00:03:40.303-05:00  INFO 10748 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 3 JPA repository interfaces.
-2025-10-28T00:03:40.612-05:00  INFO 10748 --- [JavaFX-Launcher] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-10-28T00:03:40.653-05:00  INFO 10748 --- [JavaFX-Launcher] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
-2025-10-28T00:03:40.681-05:00  INFO 10748 --- [JavaFX-Launcher] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-10-28T00:03:40.921-05:00  INFO 10748 --- [JavaFX-Launcher] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-10-28T00:03:40.946-05:00  INFO 10748 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-10-28T00:03:41.018-05:00  INFO 10748 --- [JavaFX-Launcher] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@668430e1
-2025-10-28T00:03:41.020-05:00  INFO 10748 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-10-28T00:03:41.053-05:00  INFO 10748 --- [JavaFX-Launcher] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2025-11-17T05:10:11.939-05:00  INFO 20868 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Starting application using Java 17.0.16 with PID 20868 (started by MAYKOL in D:\Gestor de Finanzas\SIST-C2G2-POO-GestorFinanzas\GestorFinanciero)
+2025-11-17T05:10:11.943-05:00  INFO 20868 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : No active profile set, falling back to 1 default profile: "default"
+2025-11-17T05:10:12.463-05:00  INFO 20868 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-17T05:10:12.531-05:00  INFO 20868 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 61 ms. Found 3 JPA repository interfaces.
+2025-11-17T05:10:12.879-05:00  INFO 20868 --- [JavaFX-Launcher] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-17T05:10:12.932-05:00  INFO 20868 --- [JavaFX-Launcher] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-11-17T05:10:12.957-05:00  INFO 20868 --- [JavaFX-Launcher] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-11-17T05:10:13.223-05:00  INFO 20868 --- [JavaFX-Launcher] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-17T05:10:13.258-05:00  INFO 20868 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-17T05:10:13.337-05:00  INFO 20868 --- [JavaFX-Launcher] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@302a6235
+2025-11-17T05:10:13.339-05:00  INFO 20868 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-17T05:10:13.376-05:00  INFO 20868 --- [JavaFX-Launcher] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 3.46
@@ -20,140 +17,10 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-10-28T00:03:41.811-05:00  INFO 10748 --- [JavaFX-Launcher] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-10-28T00:03:41.837-05:00  INFO 10748 --- [JavaFX-Launcher] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:03:42.134-05:00  INFO 10748 --- [JavaFX-Launcher] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-10-28T00:03:42.968-05:00  INFO 10748 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Started application in 3.576 seconds (process running for 4.236)
-2025-10-28T00:04:09.251-05:00  INFO 10748 --- [JavaFX Application Thread] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:04:09.253-05:00  INFO 10748 --- [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-10-28T00:04:09.256-05:00  INFO 10748 --- [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-10-28T00:04:12.633-05:00  INFO 13188 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Starting application using Java 17.0.16 with PID 13188 (started by MAYKOL in D:\Gestor de Finanzas\SIST-C2G2-POO-GestorFinanzas\GestorFinanciero)
-2025-10-28T00:04:12.636-05:00  INFO 13188 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : No active profile set, falling back to 1 default profile: "default"
-2025-10-28T00:04:13.043-05:00  INFO 13188 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-10-28T00:04:13.111-05:00  INFO 13188 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59 ms. Found 3 JPA repository interfaces.
-2025-10-28T00:04:13.419-05:00  INFO 13188 --- [JavaFX-Launcher] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-10-28T00:04:13.472-05:00  INFO 13188 --- [JavaFX-Launcher] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
-2025-10-28T00:04:13.502-05:00  INFO 13188 --- [JavaFX-Launcher] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-10-28T00:04:13.741-05:00  INFO 13188 --- [JavaFX-Launcher] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-10-28T00:04:13.773-05:00  INFO 13188 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-10-28T00:04:13.859-05:00  INFO 13188 --- [JavaFX-Launcher] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@699b730e
-2025-10-28T00:04:13.860-05:00  INFO 13188 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-10-28T00:04:13.894-05:00  INFO 13188 --- [JavaFX-Launcher] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 3.46
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-10-28T00:04:14.687-05:00  INFO 13188 --- [JavaFX-Launcher] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-10-28T00:04:14.713-05:00  INFO 13188 --- [JavaFX-Launcher] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:04:15.085-05:00  INFO 13188 --- [JavaFX-Launcher] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-10-28T00:04:15.869-05:00  INFO 13188 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Started application in 3.653 seconds (process running for 4.319)
-2025-10-28T00:04:25.965-05:00  INFO 13188 --- [JavaFX Application Thread] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:04:25.967-05:00  INFO 13188 --- [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-10-28T00:04:25.969-05:00  INFO 13188 --- [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-10-28T00:08:26.180-05:00  INFO 18928 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Starting application using Java 17.0.16 with PID 18928 (started by MAYKOL in D:\Gestor de Finanzas\SIST-C2G2-POO-GestorFinanzas\GestorFinanciero)
-2025-10-28T00:08:26.184-05:00  INFO 18928 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : No active profile set, falling back to 1 default profile: "default"
-2025-10-28T00:08:26.625-05:00  INFO 18928 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-10-28T00:08:26.681-05:00  INFO 18928 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46 ms. Found 3 JPA repository interfaces.
-2025-10-28T00:08:26.974-05:00  INFO 18928 --- [JavaFX-Launcher] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-10-28T00:08:27.017-05:00  INFO 18928 --- [JavaFX-Launcher] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
-2025-10-28T00:08:27.039-05:00  INFO 18928 --- [JavaFX-Launcher] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-10-28T00:08:27.274-05:00  INFO 18928 --- [JavaFX-Launcher] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-10-28T00:08:27.300-05:00  INFO 18928 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-10-28T00:08:27.368-05:00  INFO 18928 --- [JavaFX-Launcher] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@287deab8
-2025-10-28T00:08:27.369-05:00  INFO 18928 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-10-28T00:08:27.401-05:00  INFO 18928 --- [JavaFX-Launcher] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 3.46
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-10-28T00:08:28.149-05:00  INFO 18928 --- [JavaFX-Launcher] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-10-28T00:08:28.178-05:00  INFO 18928 --- [JavaFX-Launcher] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:08:28.525-05:00  INFO 18928 --- [JavaFX-Launcher] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-10-28T00:08:29.302-05:00  INFO 18928 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Started application in 3.539 seconds (process running for 4.237)
-2025-10-28T00:08:48.065-05:00  INFO 18928 --- [JavaFX Application Thread] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:08:48.069-05:00  INFO 18928 --- [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-10-28T00:08:48.072-05:00  INFO 18928 --- [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-10-28T00:08:51.050-05:00  INFO 12688 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Starting application using Java 17.0.16 with PID 12688 (started by MAYKOL in D:\Gestor de Finanzas\SIST-C2G2-POO-GestorFinanzas\GestorFinanciero)
-2025-10-28T00:08:51.053-05:00  INFO 12688 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : No active profile set, falling back to 1 default profile: "default"
-2025-10-28T00:08:51.507-05:00  INFO 12688 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-10-28T00:08:51.562-05:00  INFO 12688 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 3 JPA repository interfaces.
-2025-10-28T00:08:51.883-05:00  INFO 12688 --- [JavaFX-Launcher] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-10-28T00:08:51.922-05:00  INFO 12688 --- [JavaFX-Launcher] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
-2025-10-28T00:08:51.944-05:00  INFO 12688 --- [JavaFX-Launcher] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-10-28T00:08:52.178-05:00  INFO 12688 --- [JavaFX-Launcher] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-10-28T00:08:52.208-05:00  INFO 12688 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-10-28T00:08:52.281-05:00  INFO 12688 --- [JavaFX-Launcher] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@69b27779
-2025-10-28T00:08:52.282-05:00  INFO 12688 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-10-28T00:08:52.312-05:00  INFO 12688 --- [JavaFX-Launcher] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 3.46
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-10-28T00:08:53.078-05:00  INFO 12688 --- [JavaFX-Launcher] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-10-28T00:08:53.106-05:00  INFO 12688 --- [JavaFX-Launcher] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:08:53.444-05:00  INFO 12688 --- [JavaFX-Launcher] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-10-28T00:08:54.221-05:00  INFO 12688 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Started application in 3.587 seconds (process running for 4.231)
-2025-10-28T00:09:03.509-05:00  INFO 12688 --- [JavaFX Application Thread] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:09:03.511-05:00  INFO 12688 --- [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-10-28T00:09:03.513-05:00  INFO 12688 --- [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-10-28T00:14:40.872-05:00  INFO 12036 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Starting application using Java 17.0.16 with PID 12036 (started by MAYKOL in D:\Gestor de Finanzas\SIST-C2G2-POO-GestorFinanzas\GestorFinanciero)
-2025-10-28T00:14:40.876-05:00  INFO 12036 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : No active profile set, falling back to 1 default profile: "default"
-2025-10-28T00:14:41.332-05:00  INFO 12036 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-10-28T00:14:41.395-05:00  INFO 12036 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 50 ms. Found 3 JPA repository interfaces.
-2025-10-28T00:14:41.665-05:00  INFO 12036 --- [JavaFX-Launcher] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-10-28T00:14:41.701-05:00  INFO 12036 --- [JavaFX-Launcher] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
-2025-10-28T00:14:41.723-05:00  INFO 12036 --- [JavaFX-Launcher] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-10-28T00:14:41.958-05:00  INFO 12036 --- [JavaFX-Launcher] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-10-28T00:14:41.989-05:00  INFO 12036 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-10-28T00:14:42.058-05:00  INFO 12036 --- [JavaFX-Launcher] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@7f77d1ba
-2025-10-28T00:14:42.060-05:00  INFO 12036 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-10-28T00:14:42.091-05:00  INFO 12036 --- [JavaFX-Launcher] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 3.46
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-10-28T00:14:42.959-05:00  INFO 12036 --- [JavaFX-Launcher] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-10-28T00:14:42.985-05:00  INFO 12036 --- [JavaFX-Launcher] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:14:43.230-05:00  INFO 12036 --- [JavaFX-Launcher] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-10-28T00:14:44.096-05:00  INFO 12036 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Started application in 3.654 seconds (process running for 4.321)
-2025-10-28T00:15:03.111-05:00  INFO 12036 --- [JavaFX Application Thread] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:15:03.113-05:00  INFO 12036 --- [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-10-28T00:15:03.116-05:00  INFO 12036 --- [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-10-28T00:15:09.005-05:00  INFO 11480 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Starting application using Java 17.0.16 with PID 11480 (started by MAYKOL in D:\Gestor de Finanzas\SIST-C2G2-POO-GestorFinanzas\GestorFinanciero)
-2025-10-28T00:15:09.008-05:00  INFO 11480 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : No active profile set, falling back to 1 default profile: "default"
-2025-10-28T00:15:09.442-05:00  INFO 11480 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-10-28T00:15:09.498-05:00  INFO 11480 --- [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 3 JPA repository interfaces.
-2025-10-28T00:15:09.781-05:00  INFO 11480 --- [JavaFX-Launcher] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-10-28T00:15:09.817-05:00  INFO 11480 --- [JavaFX-Launcher] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
-2025-10-28T00:15:09.838-05:00  INFO 11480 --- [JavaFX-Launcher] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-10-28T00:15:10.074-05:00  INFO 11480 --- [JavaFX-Launcher] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-10-28T00:15:10.097-05:00  INFO 11480 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-10-28T00:15:10.164-05:00  INFO 11480 --- [JavaFX-Launcher] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@3428ede
-2025-10-28T00:15:10.166-05:00  INFO 11480 --- [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-10-28T00:15:10.197-05:00  INFO 11480 --- [JavaFX-Launcher] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 3.46
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-10-28T00:15:10.975-05:00  INFO 11480 --- [JavaFX-Launcher] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-10-28T00:15:11.001-05:00  INFO 11480 --- [JavaFX-Launcher] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:15:11.283-05:00  INFO 11480 --- [JavaFX-Launcher] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-10-28T00:15:12.114-05:00  INFO 11480 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Started application in 3.527 seconds (process running for 4.14)
-2025-10-28T00:23:23.924-05:00  INFO 11480 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-10-28T00:23:23.927-05:00  INFO 11480 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-10-28T00:23:23.930-05:00  INFO 11480 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-11-17T05:10:14.259-05:00  INFO 20868 --- [JavaFX-Launcher] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-17T05:10:14.298-05:00  INFO 20868 --- [JavaFX-Launcher] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-17T05:10:14.571-05:00  INFO 20868 --- [JavaFX-Launcher] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-17T05:10:15.481-05:00  INFO 20868 --- [JavaFX-Launcher] o.s.boot.SpringApplication               : Started application in 4.027 seconds (process running for 4.803)
+2025-11-17T05:10:17.925-05:00  INFO 20868 --- [JavaFX Application Thread] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-17T05:10:17.928-05:00  INFO 20868 --- [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-11-17T05:10:17.930-05:00  INFO 20868 --- [JavaFX Application Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
