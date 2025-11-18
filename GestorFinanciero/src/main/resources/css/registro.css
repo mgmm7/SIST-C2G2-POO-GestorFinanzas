@@ -1,0 +1,72 @@
+/* Fuente global */
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== GLASS CARD ===== */
+.glass-card {
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: rgba(200, 140, 255, 0.45);
+    -fx-border-width: 2;
+    -fx-padding: 25;
+    -fx-effect: dropshadow(gaussian, rgba(170, 100, 255, 0.5), 35, 0.35, 0, 0);
+}
+
+/* ===== TÍTULO ===== */
+.titulo-principal {
+    -fx-font-size: 26px;
+    -fx-text-fill: #efdbff;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(200, 160, 255, 0.7), 20, 0.4, 0, 0);
+}
+
+/* ===== INPUTS ===== */
+.glass-card TextField,
+.glass-card PasswordField {
+    -fx-background-color: rgba(255,255,255,0.15);
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: rgba(180, 120, 255, 0.3);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+    -fx-prompt-text-fill: #c4c4c4;
+}
+
+.glass-card TextField:focused,
+.glass-card PasswordField:focused {
+    -fx-border-color: rgba(210, 160, 255, 0.7);
+    -fx-background-color: rgba(255,255,255,0.20);
+}
+
+/* ===== BOTÓN PRIMARIO ===== */
+.btn-primario {
+    -fx-background-color: linear-gradient(to bottom right, #ac63ff, #c691ff);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(170, 85, 255, 0.55), 20, 0.6, 0, 0);
+}
+
+.btn-primario:hover {
+    -fx-background-color: linear-gradient(to bottom right, #c691ff, #d7b2ff);
+}
+
+/* ===== BOTÓN SECUNDARIO ===== */
+.btn-secundario {
+    -fx-background-color: transparent;
+    -fx-border-color: #c691ff;
+    -fx-border-radius: 12;
+    -fx-text-fill: #d9b9ff;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.btn-secundario:hover {
+    -fx-border-color: #e7d3ff;
+    -fx-text-fill: #ffffff;
+}

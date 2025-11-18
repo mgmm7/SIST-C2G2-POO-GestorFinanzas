@@ -3,13 +3,12 @@ package pe.edu.upeu.gestorfinanciero.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pe.edu.upeu.gestorfinanciero.model.Categoria;
+import pe.edu.upeu.gestorfinanciero.model.Usuario;
 import pe.edu.upeu.gestorfinanciero.repository.CategoriaRepository;
 import pe.edu.upeu.gestorfinanciero.repository.EgresoRepository;
 import pe.edu.upeu.gestorfinanciero.repository.IngresoRepository;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,83 +19,68 @@ public class MovimientoService {
     private final EgresoRepository egresoRepository;
 
     // Crear nueva categoría
-    public void crearCategoria(String nombre) {
-        Categoria nueva = new Categoria();
-        nueva.setNombre(nombre);
-        nueva.setPresupuesto(0);
-        nueva.setLimite(0);
-        nueva.setSaldoDisponible(0);
-        categoriaRepository.save(nueva);
+    public Categoria crearCategoria(String nombre, Usuario usuario) {
+        Categoria existe = categoriaRepository.findByNombreAndUsuario(nombre, usuario);
+        if (existe != null) return null;
+
+        Categoria c = new Categoria(nombre, usuario);
+        return categoriaRepository.save(c);
     }
 
-    // Listar todas las categorías
-    public List<Categoria> listarCategorias() {
-        return categoriaRepository.findAll();
+    // Listar categorías del usuario
+    public List<Categoria> listarCategoriasUsuario(Usuario usuario) {
+        return categoriaRepository.findByUsuarioOrderByNombreAsc(usuario);
     }
 
-    // Obtener solo los nombres
-    public List<String> obtenerCategorias() {
-        return listarCategorias().stream()
-                .map(Categoria::getNombre)
-                .collect(Collectors.toList());
-    }
-
-    private Optional<Categoria> buscarPorNombre(String nombre) {
-        return Optional.ofNullable(categoriaRepository.findByNombre(nombre));
-    }
-
-    public void asignarPresupuesto(String nombre, double monto) {
-        buscarPorNombre(nombre).ifPresent(c -> {
+    // Asignar presupuesto (SUMAR)
+    public void asignarPresupuesto(String nombre, double monto, Usuario usuario) {
+        Categoria c = categoriaRepository.findByNombreAndUsuario(nombre, usuario);
+        if (c != null) {
             c.setPresupuesto(c.getPresupuesto() + monto);
             c.setSaldoDisponible(c.getSaldoDisponible() + monto);
             categoriaRepository.save(c);
-        });
+        }
     }
 
-    public void asignarLimite(String nombre, double nuevoLimite) {
-        buscarPorNombre(nombre).ifPresent(c -> {
-            c.setLimite(nuevoLimite);
+    // Asignar o editar límite
+    public void asignarLimite(String nombre, double limite, Usuario usuario) {
+        Categoria c = categoriaRepository.findByNombreAndUsuario(nombre, usuario);
+        if (c != null) {
+            c.setLimite(limite);
             categoriaRepository.save(c);
-        });
+        }
     }
 
-    public void actualizarSaldoCategoria(String nombre, double nuevoSaldo) {
-        buscarPorNombre(nombre).ifPresent(c -> {
+    public void actualizarSaldoCategoria(String nombre, double nuevoSaldo, Usuario usuario) {
+        Categoria c = categoriaRepository.findByNombreAndUsuario(nombre, usuario);
+        if (c != null) {
             c.setSaldoDisponible(nuevoSaldo);
             categoriaRepository.save(c);
-        });
+        }
     }
 
-    public double obtenerSaldoCategoria(String nombre) {
-        return buscarPorNombre(nombre)
-                .map(Categoria::getSaldoDisponible)
-                .orElse(0.0);
+    // Obtener datos
+    public double obtenerSaldoCategoria(String nombre, Usuario usuario) {
+        Categoria c = categoriaRepository.findByNombreAndUsuario(nombre, usuario);
+        return c == null ? 0 : c.getSaldoDisponible();
     }
 
-    public double obtenerLimiteCategoria(String nombre) {
-        return buscarPorNombre(nombre)
-                .map(Categoria::getLimite)
-                .orElse(0.0);
+    public double obtenerLimiteCategoria(String nombre, Usuario usuario) {
+        Categoria c = categoriaRepository.findByNombreAndUsuario(nombre, usuario);
+        return c == null ? 0 : c.getLimite();
     }
 
-    public void editarCategoria(String nombreActual, String nuevoNombre, double nuevoPresupuesto) {
-        buscarPorNombre(nombreActual).ifPresent(c -> {
-            c.setNombre(nuevoNombre);
-            c.setPresupuesto(nuevoPresupuesto);
+    // Editar categoría
+    public void editarCategoria(String antiguo, String nuevo, Usuario usuario) {
+        Categoria c = categoriaRepository.findByNombreAndUsuario(antiguo, usuario);
+        if (c != null) {
+            c.setNombre(nuevo);
             categoriaRepository.save(c);
-        });
+        }
     }
 
-    public void eliminarCategoria(String nombre) {
-        categoriaRepository.deleteByNombre(nombre);
-    }
-
-    // 🔹 Calcular saldo global del sistema
-    public double obtenerSaldoActual() {
-        Double totalIngresos = ingresoRepository.sumTotal();
-        Double totalEgresos = egresoRepository.sumTotal();
-        if (totalIngresos == null) totalIngresos = 0.0;
-        if (totalEgresos == null) totalEgresos = 0.0;
-        return totalIngresos - totalEgresos;
+    // Eliminar categoría
+    public void eliminarCategoria(String nombre, Usuario usuario) {
+        categoriaRepository.deleteByNombreAndUsuario(nombre, usuario);
     }
 }

@@ -5,41 +5,51 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="pe.edu.upeu.gestorfinanciero.controller.IngresoController">
+            fx:controller="pe.edu.upeu.gestorfinanciero.controller.IngresoController"
+            prefWidth="650" prefHeight="520"
+            style="-fx-background-color: linear-gradient(to bottom right, #110f1b, #1b0e2e, #2b0b45);">
 
     <children>
-        <!-- Título -->
-        <Label text="Registro de Ingresos" layoutX="20" layoutY="15"
-               style="-fx-font-size: 18; -fx-font-weight: bold;"/>
 
-        <!-- Panel de registro -->
+        <Label text="Registro de Ingresos" layoutX="20" layoutY="15"
+               style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #d7b4ff;"/>
+
         <VBox layoutX="20" layoutY="50" spacing="10">
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
 
             <HBox spacing="10">
-                <Label text="Monto:"/>
-                <TextField fx:id="txtMonto" promptText="Monto del ingreso" prefWidth="120"/>
-                <Label text="Descripción:"/>
-                <TextField fx:id="txtDescripcion" promptText="Motivo o fuente" prefWidth="200"/>
+                <Label text="Monto:" style="-fx-text-fill: #e0b3ff;"/>
+                <TextField fx:id="txtMonto" promptText="Monto del ingreso"
+                           style="-fx-background-radius: 8; -fx-border-radius: 8;
+                                  -fx-background-color: rgba(255,255,255,0.1);
+                                  -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"
+                           prefWidth="120"/>
+                <Label text="Descripción:" style="-fx-text-fill: #e0b3ff;"/>
+                <TextField fx:id="txtDescripcion" promptText="Motivo o fuente"
+                           style="-fx-background-radius: 8; -fx-border-radius: 8;
+                                  -fx-background-color: rgba(255,255,255,0.1);
+                                  -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"
+                           prefWidth="200"/>
             </HBox>
 
             <HBox spacing="10">
-                <Button text="Registrar" onAction="#registrarIngreso" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
-                <Button text="Editar" onAction="#editarIngreso" style="-fx-background-color: #FFC107; -fx-text-fill: black;"/>
-                <Button text="Eliminar" onAction="#eliminarIngreso" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+                <Button text="Registrar" onAction="#registrar"
+                        style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
+                <Button text="Editar" onAction="#editar"
+                        style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
+                <Button text="Eliminar" onAction="#eliminar"
+                        style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
             </HBox>
 
-            <!-- ✅ Renombrado para evitar conflicto -->
-            <Label fx:id="lblSaldoIngreso" text="Saldo actual: S/ 0.00"
-                   style="-fx-font-weight: bold; -fx-text-fill: #333;"/>
+            <Label fx:id="lblSaldoIngreso" text="Total Ingresos: S/ 0.00"
+                   style="-fx-font-weight: bold; -fx-text-fill: #d7b4ff;"/>
         </VBox>
 
-        <!-- Tabla de ingresos -->
-        <TableView fx:id="tablaIngresos" layoutX="20" layoutY="210"
-                   prefWidth="600" prefHeight="280">
-
+        <TableView fx:id="tabla" layoutX="20" layoutY="210"
+                   prefWidth="610" prefHeight="280"
+                   style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: #e0b3ff;">
             <columns>
                 <TableColumn fx:id="colFecha" text="Fecha" prefWidth="100"/>
                 <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="180"/>
@@ -47,5 +57,7 @@
                 <TableColumn fx:id="colSaldo" text="Saldo" prefWidth="120"/>
             </columns>
         </TableView>
+
     </children>
 </AnchorPane>
+

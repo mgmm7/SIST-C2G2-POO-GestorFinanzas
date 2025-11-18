@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="pe.edu.upeu.gestorfinanciero.controller.LoginController">
+            fx:controller="pe.edu.upeu.gestorfinanciero.controller.LoginController"
+            stylesheets="@../css/login.css"
+            prefWidth="860" prefHeight="540">
+
     <children>
-        <Label text="Gestor Financiero - Login" layoutX="100" layoutY="30"/>
-        <TextField fx:id="txtUsuario" layoutX="80" layoutY="80" promptText="Usuario"/>
-        <PasswordField fx:id="txtClave" layoutX="80" layoutY="120" promptText="Contraseña"/>
-        <Button text="Ingresar" onAction="#login" layoutX="80" layoutY="170"/>
+
+
+        <AnchorPane prefWidth="860" prefHeight="540"
+                    style="-fx-background-color: linear-gradient(to bottom right, #110f1b, #1b0e2e, #2b0b45);">
+        </AnchorPane>
+
+
+        <VBox alignment="CENTER" spacing="18"
+              prefWidth="380" prefHeight="330"
+              layoutX="240" layoutY="110"
+              styleClass="glass-card"
+              style="-fx-border-color: rgba(160, 99, 255, 0.4);
+                     -fx-border-width: 2;
+                     -fx-background-radius: 18;
+                     -fx-border-radius: 18;
+                     -fx-effect: dropshadow(gaussian, rgba(160, 99, 255,0.35), 25, 0.2, 0, 0);">
+
+
+            <Label text="Bienvenido"
+                   styleClass="titulo-principal"
+                   style="-fx-text-fill: #d7b4ff;"/>
+
+
+            <TextField fx:id="txtUsuario"
+                       promptText="Nombre de usuario"
+                       prefWidth="240"
+                       styleClass="input-field"/>
+
+
+            <PasswordField fx:id="txtClave"
+                           promptText="Contraseña"
+                           prefWidth="240"
+                           styleClass="input-field"/>
+
+
+            <Button text="Ingresar"
+                    onAction="#login"
+                    prefWidth="200"
+                    styleClass="btn-primario"/>
+
+
+            <Label text="¿No tienes cuenta?"
+                   style="-fx-text-fill: #dcdcdc; -fx-font-size: 12px;"/>
+
+
+            <Hyperlink text="Crear una cuenta"
+                       onAction="#irRegistro"
+                       styleClass="link"/>
+
+        </VBox>
+
     </children>
+
 </AnchorPane>

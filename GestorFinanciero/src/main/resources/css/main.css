@@ -1,0 +1,145 @@
+/* GLOBAL */
+.root {
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+    -fx-background-color: linear-gradient(to bottom right, #0d0b14, #1a1329);
+}
+
+/* SIDEBAR */
+.sidebar-compact {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-padding: 18 10;
+    -fx-alignment: top-center;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(120,70,240,0.35), 35, 0.4, 0, 0);
+}
+
+/* AVATAR CIRCLE */
+.avatar-wrap {
+    -fx-padding: 6;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+
+    /* borde neon */
+    -fx-border-color: linear-gradient(to bottom right, #bb86fc, #8e44ff);
+    -fx-border-width: 3;
+
+    /* Glow */
+    -fx-effect: dropshadow(gaussian, rgba(150, 120, 255, 0.7), 25, 0.45, 0, 0);
+}
+
+/* Username */
+.sidebar-user {
+    -fx-text-fill: #d9caff;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 0 4 0;
+    -fx-text-alignment: center;
+    -fx-max-width: 100;
+}
+
+/* Buttons del sidebar */
+.sidebar-btn {
+    -fx-background-color: rgba(255,255,255,0.04);
+    -fx-text-fill: #c7b6ff;
+    -fx-font-size: 13px;
+    -fx-padding: 10 8;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-transition: 0.3s;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: linear-gradient(to bottom right, rgba(160,110,255,0.25), rgba(120,70,240,0.18));
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(160,110,255,0.35), 20, 0.3, 0, 0);
+    -fx-translate-y: -2;
+}
+
+/* Estado activado */
+.sidebar-btn.active {
+    -fx-background-color: linear-gradient(to bottom right, #8f44ff55, #c68aff33);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(160,110,255,0.6), 30, 0.4, 0, 0);
+}
+
+/* BOTÓN CERRAR SESIÓN — sin rojo */
+.sidebar-exit {
+    -fx-background-color: linear-gradient(to bottom right, rgba(120,70,240,0.35), rgba(160,110,255,0.2));
+    -fx-text-fill: #eee1ff;
+    -fx-font-size: 12px;
+    -fx-background-radius: 10;
+    -fx-padding: 8 12;
+}
+
+.sidebar-exit:hover {
+    -fx-background-color: linear-gradient(to bottom right, rgba(160,110,255,0.55), rgba(200,150,255,0.35));
+    -fx-effect: dropshadow(gaussian, rgba(160,110,255,0.45), 18, 0.3, 0, 0);
+    -fx-text-fill: white;
+}
+
+/* --- CENTER CARD (GLASS PANEL) --- */
+.center-wrapper {
+    -fx-padding: 20 20 20 40; /* top right bottom left */
+}
+
+.center-card {
+    -fx-background-color: rgba(255,255,255,0.04);
+    -fx-background-radius: 20;
+    -fx-padding: 24;
+
+    -fx-border-color: rgba(160,110,255,0.35);
+    -fx-border-width: 2;
+    -fx-border-radius: 20;
+
+    -fx-effect: dropshadow(gaussian, rgba(120,70,240,0.35), 40, 0.25, 0, 0);
+}
+
+/* contenido */
+#contenidoCentral {
+    -fx-padding: 18;
+}
+.user-panel {
+    -fx-padding: 20;
+}
+
+.avatar-large {
+    -fx-background-radius: 80;
+    -fx-border-radius: 80;
+    -fx-border-color: linear-gradient(to bottom right, #8f44ff, #b57bff);
+    -fx-border-width: 4;
+    -fx-effect: dropshadow(gaussian, rgba(140,80,250,0.6), 35, 0.35, 0, 0);
+}
+
+.title-label {
+    -fx-text-fill: #d7c7ff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.neon-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cfc0ff;
+    -fx-padding: 6 12;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: rgba(150,120,255,0.6);
+}
+
+.neon-btn:hover {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: rgba(150,120,255,0.2);
+}
+
+.save-btn {
+    -fx-background-color: linear-gradient(to bottom right, #8451ff, #a16aff);
+    -fx-text-fill: white;
+    -fx-padding: 10 14;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(120,70,240,0.45), 20, 0.25, 0, 0);
+}
+
+.save-btn:hover {
+    -fx-background-color: linear-gradient(to bottom right, #9672ff, #b58cff);
+}
+

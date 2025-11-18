@@ -3,8 +3,8 @@ package pe.edu.upeu.gestorfinanciero.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pe.edu.upeu.gestorfinanciero.model.Ingreso;
+import pe.edu.upeu.gestorfinanciero.model.Usuario;
 import pe.edu.upeu.gestorfinanciero.repository.IngresoRepository;
-
 
 import java.util.List;
 
@@ -14,21 +14,22 @@ public class IngresoService {
 
     private final IngresoRepository ingresoRepository;
 
-    public void guardarIngreso(Ingreso ingreso) {
+    public void guardar(Ingreso ingreso) {
         ingresoRepository.save(ingreso);
     }
 
-    public List<Ingreso> listarIngresos() {
-        return ingresoRepository.findAll();
+    public List<Ingreso> listar(Usuario usuario) {
+        return ingresoRepository.findByUsuarioOrderByIdDesc(usuario);
     }
 
-    public void eliminarIngreso(Ingreso ingreso) {
+    public void eliminar(Ingreso ingreso) {
         ingresoRepository.delete(ingreso);
     }
 
-    public double totalIngresos() {
-        return ingresoRepository.findAll()
-                .stream().mapToDouble(Ingreso::getMonto)
+    public double total(Usuario usuario) {
+        return listar(usuario)
+                .stream()
+                .mapToDouble(Ingreso::getMonto)
                 .sum();
     }
 }

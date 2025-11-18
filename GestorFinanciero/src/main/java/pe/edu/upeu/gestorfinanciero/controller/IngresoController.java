@@ -5,122 +5,125 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import pe.edu.upeu.gestorfinanciero.config.UsuarioSesion;
 import pe.edu.upeu.gestorfinanciero.model.Ingreso;
+import pe.edu.upeu.gestorfinanciero.model.Usuario;
 import pe.edu.upeu.gestorfinanciero.service.IngresoService;
-import pe.edu.upeu.gestorfinanciero.service.ReporteService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Controller
+@RequiredArgsConstructor
 public class IngresoController {
 
     @FXML private TextField txtDescripcion;
     @FXML private TextField txtMonto;
     @FXML private Label lblSaldoIngreso;
-    @FXML private TableView<Ingreso> tablaIngresos;
+
+    @FXML private TableView<Ingreso> tabla;
     @FXML private TableColumn<Ingreso, String> colFecha;
     @FXML private TableColumn<Ingreso, String> colDescripcion;
-    @FXML private TableColumn<Ingreso, Number> colMonto;
-    @FXML private TableColumn<Ingreso, Number> colSaldo;
+    @FXML private TableColumn<Ingreso, Double> colMonto;
+    @FXML private TableColumn<Ingreso, Double> colSaldo;
 
-    private final ObservableList<Ingreso> listaIngresos = FXCollections.observableArrayList();
+    private final ObservableList<Ingreso> lista = FXCollections.observableArrayList();
+
+    private final UsuarioSesion usuarioSesion;
     private final IngresoService ingresoService;
-    private final ReporteService reporteService;
 
-    public IngresoController(IngresoService ingresoService, ReporteService reporteService) {
-        this.ingresoService = ingresoService;
-        this.reporteService = reporteService;
-    }
+    private Usuario usuarioActual;
 
     @FXML
     public void initialize() {
-        colFecha.setCellValueFactory(data -> data.getValue().fechaProperty());
-        colDescripcion.setCellValueFactory(data -> data.getValue().descripcionProperty());
-        colMonto.setCellValueFactory(data -> data.getValue().montoProperty());
-        colSaldo.setCellValueFactory(data -> data.getValue().saldoProperty());
 
-        listaIngresos.clear(); // ✅ evita duplicados
-        listaIngresos.addAll(ingresoService.listarIngresos());
-        tablaIngresos.setItems(listaIngresos);
+        usuarioActual = usuarioSesion.getUsuarioActual();
 
-        actualizarSaldoIngreso();
+        colFecha.setCellValueFactory(i -> new javafx.beans.property.SimpleStringProperty(i.getValue().getFecha()));
+        colDescripcion.setCellValueFactory(i -> new javafx.beans.property.SimpleStringProperty(i.getValue().getDescripcion()));
+        colMonto.setCellValueFactory(i -> new javafx.beans.property.SimpleDoubleProperty(i.getValue().getMonto()).asObject());
+        colSaldo.setCellValueFactory(i -> new javafx.beans.property.SimpleDoubleProperty(i.getValue().getSaldo()).asObject());
+
+        refrescarTabla();
+    }
+
+    private void refrescarTabla() {
+        lista.setAll(ingresoService.listar(usuarioActual));
+        tabla.setItems(lista);
+
+        double total = lista.stream().mapToDouble(Ingreso::getMonto).sum();
+        lblSaldoIngreso.setText("Total Ingresos: S/ " + String.format("%.2f", total));
     }
 
     @FXML
-    public void registrarIngreso(ActionEvent e) {
-        String descripcion = txtDescripcion.getText();
-        String fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    public void registrar(ActionEvent e) {
+        String desc = txtDescripcion.getText().trim();
+        String montoTxt = txtMonto.getText().trim();
+
+        if (desc.isEmpty() || montoTxt.isEmpty()) {
+            alert("Complete todos los campos.");
+            return;
+        }
+
         double monto;
-
-        if (descripcion.isEmpty() || txtMonto.getText().isEmpty()) {
-            mostrarAlerta("Campos vacíos", "Debes llenar todos los campos.", Alert.AlertType.WARNING);
+        try { monto = Double.parseDouble(montoTxt); }
+        catch (Exception ex) {
+            alert("Monto inválido.");
             return;
         }
 
-        try {
-            monto = Double.parseDouble(txtMonto.getText());
-        } catch (NumberFormatException ex) {
-            mostrarAlerta("Error", "Monto inválido.", Alert.AlertType.ERROR);
-            return;
-        }
-
-        double saldoAnterior = reporteService.saldoActual();
+        double saldoAnterior = ingresoService.total(usuarioActual);
         double nuevoSaldo = saldoAnterior + monto;
 
-        Ingreso ingreso = new Ingreso(fecha, descripcion, monto, nuevoSaldo);
-        ingresoService.guardarIngreso(ingreso);
-        listaIngresos.add(ingreso);
+        String fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-        actualizarSaldoIngreso();
-        limpiarCampos();
+        Ingreso ingreso = new Ingreso(fecha, desc, monto, nuevoSaldo, usuarioActual);
+
+        ingresoService.guardar(ingreso);
+
+        limpiar();
+        refrescarTabla();
     }
 
     @FXML
-    public void editarIngreso(ActionEvent e) {
-        Ingreso seleccionado = tablaIngresos.getSelectionModel().getSelectedItem();
-        if (seleccionado == null) {
-            mostrarAlerta("Advertencia", "Selecciona un ingreso para editar.", Alert.AlertType.WARNING);
+    public void eliminar(ActionEvent e) {
+        Ingreso sel = tabla.getSelectionModel().getSelectedItem();
+        if (sel == null) {
+            alert("Seleccione un registro.");
             return;
         }
 
-        txtDescripcion.setText(seleccionado.getDescripcion());
-        txtMonto.setText(String.valueOf(seleccionado.getMonto()));
-
-        listaIngresos.remove(seleccionado);
-        ingresoService.eliminarIngreso(seleccionado);
-        actualizarSaldoIngreso();
+        ingresoService.eliminar(sel);
+        refrescarTabla();
     }
 
     @FXML
-    public void eliminarIngreso(ActionEvent e) {
-        Ingreso seleccionado = tablaIngresos.getSelectionModel().getSelectedItem();
-        if (seleccionado == null) {
-            mostrarAlerta("Advertencia", "Selecciona un ingreso para eliminar.", Alert.AlertType.WARNING);
+    public void editar(ActionEvent e) {
+        Ingreso sel = tabla.getSelectionModel().getSelectedItem();
+        if (sel == null) {
+            alert("Seleccione un registro.");
             return;
         }
 
-        ingresoService.eliminarIngreso(seleccionado);
-        listaIngresos.remove(seleccionado);
-        actualizarSaldoIngreso();
+        txtDescripcion.setText(sel.getDescripcion());
+        txtMonto.setText(String.valueOf(sel.getMonto()));
+
+        ingresoService.eliminar(sel);
+        refrescarTabla();
     }
 
-    private void actualizarSaldoIngreso() {
-        double saldo = reporteService.saldoActual();
-        lblSaldoIngreso.setText("Saldo actual: S/ " + String.format("%.2f", saldo));
-    }
-
-    private void limpiarCampos() {
+    private void limpiar() {
         txtDescripcion.clear();
         txtMonto.clear();
     }
 
-    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
+    private void alert(String m) {
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setHeaderText(null);
+        a.setContentText(m);
+        a.show();
     }
 }
+

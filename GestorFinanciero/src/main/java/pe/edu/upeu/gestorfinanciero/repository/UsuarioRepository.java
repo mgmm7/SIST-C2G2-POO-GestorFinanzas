@@ -2,14 +2,13 @@ package pe.edu.upeu.gestorfinanciero.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pe.edu.upeu.gestorfinanciero.model.Ingreso;
 import pe.edu.upeu.gestorfinanciero.model.Usuario;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface IngresoRepository extends JpaRepository<Ingreso, Long> {
-
-    List<Ingreso> findByUsuarioOrderByIdDesc(Usuario usuario);
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+    Optional<Usuario> findByUsername(String username);
+    boolean existsByUsername(String username);
 
 }

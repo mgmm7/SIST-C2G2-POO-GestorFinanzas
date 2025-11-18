@@ -1,23 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="pe.edu.upeu.gestorfinanciero.controller.ReporteController">
-    <children>
-        <Label text="Reporte General" layoutX="20" layoutY="20"
-               style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+            fx:controller="pe.edu.upeu.gestorfinanciero.controller.ReporteController"
+            prefWidth="1000" prefHeight="620"
+            style="-fx-background-color: linear-gradient(to bottom right, #110f1b, #1b0e2e, #2b0b45);">
 
-        <HBox layoutX="20" layoutY="60" spacing="30">
-            <Label fx:id="lblTotalIngresos" style="-fx-text-fill: green; -fx-font-size: 14;"/>
-            <Label fx:id="lblTotalEgresos" style="-fx-text-fill: red; -fx-font-size: 14;"/>
-            <Label fx:id="lblSaldoActual" style="-fx-text-fill: blue; -fx-font-size: 14; -fx-font-weight: bold;"/>
-        </HBox>
+    <left>
+        <VBox spacing="12" alignment="TOP_CENTER" prefWidth="240"
+              style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 12;">
+            <padding>
+                <Insets top="12" right="12" bottom="12" left="12"/>
+            </padding>
 
-        <TableView fx:id="tablaMovimientos" layoutX="20" layoutY="100" prefWidth="700" prefHeight="300"/>
-        <Label text="Detalles:" layoutX="750" layoutY="100" style="-fx-font-weight: bold;"/>
-        <TextArea fx:id="txtDetalles" layoutX="750" layoutY="130" prefWidth="300" prefHeight="270"
-                  wrapText="true" editable="false"/>
-    </children>
-</AnchorPane>
+            <Label text="Reportes" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #d7b4ff;"/>
+            <Separator prefWidth="200"/>
+
+            <Label text="Filtrar por:" style="-fx-font-size:12; -fx-text-fill:#e0b3ff;"/>
+            <ComboBox fx:id="cmbCategorias" prefWidth="200" promptText="Seleccione categoría"
+                      style="-fx-background-radius: 8;
+                 -fx-border-radius: 8;
+                 -fx-background-color: rgba(133,43,163,0.15);
+                 -fx-border-color: #b366ff;
+                 -fx-border-width: 2;
+                 -fx-text-fill: #ffffff;
+                 -fx-prompt-text-fill: #d580ff;
+                 -fx-padding: 4 10 4 10;"/>
+
+
+            <HBox spacing="8" alignment="CENTER">
+                <Button fx:id="btnOrden" text="⇅"
+                        style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;">
+                    <tooltip><Tooltip text="Cambiar orden (por fecha)"/></tooltip>
+                </Button>
+
+                <Button fx:id="btnExport" text="Exportar"
+                        style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;">
+                    <tooltip><Tooltip text="Exportar JSON/Excel"/></tooltip>
+                </Button>
+            </HBox>
+
+            <Separator prefWidth="200"/>
+
+            <Label text="Totales" style="-fx-font-size:12; -fx-text-fill:#e0b3ff;"/>
+            <Label fx:id="lblTotalIngresos" text="Total Ingresos: S/ 0.00"
+                   style="-fx-text-fill:#bb86fc; -fx-font-weight:bold;"/>
+            <Label fx:id="lblTotalEgresos" text="Total Egresos: S/ 0.00"
+                   style="-fx-text-fill:#bb86fc; -fx-font-weight:bold;"/>
+            <Label fx:id="lblSaldoActual"  text="Saldo: S/ 0.00"
+                   style="-fx-text-fill:#d7b4ff; -fx-font-weight:bold;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+            <Label text="(Selecciona un registro para ver detalle)" style="-fx-font-size:11px; -fx-text-fill:#bfb0ff"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="8" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 12;">
+            <padding>
+                <Insets top="12" right="12" bottom="12" left="12"/>
+            </padding>
+
+            <TableView fx:id="tablaMovimientos" prefHeight="520"
+                       style="-fx-background-color: rgba(255,255,255,0.05); -fx-table-cell-border-color:#bb86fc; -fx-text-fill:#e0b3ff;">
+                <columns>
+                    <TableColumn text="Tipo" fx:id="colTipo"/>
+                    <TableColumn text="Categoría" fx:id="colCategoria"/>
+                    <TableColumn text="Descripción" fx:id="colDescripcion"/>
+                    <TableColumn text="Monto" fx:id="colMonto"/>
+                    <TableColumn text="Fecha" fx:id="colFecha"/>
+                </columns>
+            </TableView>
+
+            <TitledPane text="Resumen / detalles rápidos" expanded="false" collapsible="true"
+                        style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: #e0b3ff;">
+                <content>
+                    <VBox spacing="6">
+                        <padding>
+                            <Insets top="8" right="8" bottom="8" left="8"/>
+                        </padding>
+                        <Label text="Detalles rápidos del elemento seleccionado:"
+                               style="-fx-font-weight:bold; -fx-text-fill:#d7b4ff;"/>
+                        <TextArea fx:id="txtDetalles" prefRowCount="4" wrapText="true" editable="false"
+                                  style="-fx-background-radius:8; -fx-border-radius:8;
+                                         -fx-background-color: rgba(255,255,255,0.1);
+                                         -fx-border-color: #bb86fc; -fx-border-width:1.5;
+                                         -fx-text-fill: #e0b3ff;"/>
+                    </VBox>
+                </content>
+            </TitledPane>
+
+        </VBox>
+    </center>
+
+    <right>
+        <VBox spacing="10" prefWidth="300"
+              style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 12;">
+            <padding>
+                <Insets top="12" right="12" bottom="12" left="12"/>
+            </padding>
+
+            <StackPane style="-fx-background-color: rgba(187,134,252,0.2); -fx-background-radius:12; -fx-padding:10;">
+                <Label text="Resumen Categorías"
+                       style="-fx-font-size:14px; -fx-font-weight:bold; -fx-text-fill:#f3e9ff;"/>
+            </StackPane>
+
+            <Label text="Categorias:" style="-fx-font-size:12; -fx-text-fill:#e0b3ff;"/>
+            <ListView fx:id="lvCategorias" prefHeight="300"
+                      style="-fx-background-color: rgba(255,255,255,0.1); -fx-border-color:#bb86fc; -fx-border-width:1.5; -fx-text-fill:#e0b3ff;"/>
+
+            <Separator prefWidth="260"/>
+
+            <TitledPane text="Detalle extendido" fx:id="paneDetalle" expanded="false" collapsible="true"
+                        style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill:#e0b3ff;">
+                <content>
+                    <VBox spacing="8">
+                        <padding>
+                            <Insets top="8" right="8" bottom="8" left="8"/>
+                        </padding>
+
+                        <GridPane hgap="8" vgap="6">
+                            <Label text="Categoría:" GridPane.rowIndex="0" style="-fx-text-fill:#e0b3ff;"/>
+                            <Label fx:id="lblDetCategoria" GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-text-fill:#d7b4ff;"/>
+
+                            <Label text="Presupuesto:" GridPane.rowIndex="1" style="-fx-text-fill:#e0b3ff;"/>
+                            <Label fx:id="lblDetPresupuesto" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-text-fill:#d7b4ff;"/>
+
+                            <Label text="Limite:" GridPane.rowIndex="2" style="-fx-text-fill:#e0b3ff;"/>
+                            <Label fx:id="lblDetLimite" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-text-fill:#d7b4ff;"/>
+
+                            <Label text="Saldo disponible:" GridPane.rowIndex="3" style="-fx-text-fill:#e0b3ff;"/>
+                            <Label fx:id="lblDetSaldo" GridPane.rowIndex="3" GridPane.columnIndex="1" style="-fx-text-fill:#d7b4ff;"/>
+                        </GridPane>
+
+                        <Separator/>
+                        <Label text="Movimientos relacionados:" style="-fx-font-weight:bold; -fx-text-fill:#d7b4ff;"/>
+
+                        <TableView fx:id="tablaDetalle" prefHeight="180"
+                                   style="-fx-background-color: rgba(255,255,255,0.05); -fx-table-cell-border-color:#bb86fc; -fx-text-fill:#e0b3ff;">
+                            <columns>
+                                <TableColumn text="Tipo" fx:id="detTipo"/>
+                                <TableColumn text="Descripción" fx:id="detDesc"/>
+                                <TableColumn text="Monto" fx:id="detMonto"/>
+                                <TableColumn text="Fecha" fx:id="detFecha"/>
+                            </columns>
+                        </TableView>
+
+                    </VBox>
+                </content>
+            </TitledPane>
+
+        </VBox>
+    </right>
+
+</BorderPane>

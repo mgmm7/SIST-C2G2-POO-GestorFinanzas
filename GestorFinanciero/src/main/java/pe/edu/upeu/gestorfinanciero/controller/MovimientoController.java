@@ -5,154 +5,152 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import pe.edu.upeu.gestorfinanciero.config.UsuarioSesion;
 import pe.edu.upeu.gestorfinanciero.model.Categoria;
+import pe.edu.upeu.gestorfinanciero.model.Usuario;
 import pe.edu.upeu.gestorfinanciero.service.MovimientoService;
 
-import java.util.Optional;
-
 @Controller
+@RequiredArgsConstructor
 public class MovimientoController {
+
+    private final UsuarioSesion usuarioSesion;
+    private final MovimientoService movimientoService;
+
+    private Usuario usuarioActual;
 
     @FXML private TextField txtNuevaCategoria;
     @FXML private TextField txtPresupuesto;
     @FXML private TextField txtLimite;
-    @FXML private ComboBox<String> cbxCategoriaPresupuesto;
-    @FXML private ComboBox<String> cbxCategoriaLimite;
-    @FXML private ComboBox<String> cbxCategoriaEditar;
+
+    @FXML private ComboBox<String> cbxPresupuesto;
+    @FXML private ComboBox<String> cbxLimite;
+    @FXML private ComboBox<String> cbxEditar;
+
     @FXML private TableView<Categoria> tablaCategorias;
+
     @FXML private TableColumn<Categoria, String> colNombre;
-    @FXML private TableColumn<Categoria, Number> colPresupuesto;
-    @FXML private TableColumn<Categoria, Number> colLimite;
-    @FXML private TableColumn<Categoria, Number> colSaldoDisp;
-    @FXML private Label lblSaldoActual;
+    @FXML private TableColumn<Categoria, Double> colPresupuesto;
+    @FXML private TableColumn<Categoria, Double> colLimite;
+    @FXML private TableColumn<Categoria, Double> colSaldo;
 
-    private final MovimientoService movimientoService;
-    private final ObservableList<Categoria> listaCategorias = FXCollections.observableArrayList();
-
-    public MovimientoController(MovimientoService movimientoService) {
-        this.movimientoService = movimientoService;
-    }
+    private final ObservableList<Categoria> lista = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        colNombre.setCellValueFactory(data -> data.getValue().nombreProperty());
-        colPresupuesto.setCellValueFactory(data -> data.getValue().presupuestoProperty());
-        colLimite.setCellValueFactory(data -> data.getValue().limiteProperty());
-        colSaldoDisp.setCellValueFactory(data -> data.getValue().saldoDisponibleProperty());
 
-        refrescarCategorias();
-        actualizarSaldoActual();
+        usuarioActual = usuarioSesion.getUsuarioActual();
+
+        colNombre.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(c.getValue().getNombre()));
+        colPresupuesto.setCellValueFactory(c -> new javafx.beans.property.SimpleDoubleProperty(c.getValue().getPresupuesto()).asObject());
+        colLimite.setCellValueFactory(c -> new javafx.beans.property.SimpleDoubleProperty(c.getValue().getLimite()).asObject());
+        colSaldo.setCellValueFactory(c -> new javafx.beans.property.SimpleDoubleProperty(c.getValue().getSaldoDisponible()).asObject());
+
+        refrescarTodo();
+    }
+
+    private void refrescarTodo() {
+        lista.setAll(movimientoService.listarCategoriasUsuario(usuarioActual));
+        tablaCategorias.setItems(lista);
+
+        var nombres = FXCollections.observableArrayList(
+                lista.stream().map(Categoria::getNombre).toList()
+        );
+
+        cbxPresupuesto.setItems(nombres);
+        cbxLimite.setItems(nombres);
+        cbxEditar.setItems(nombres);
     }
 
     @FXML
     public void crearCategoria(ActionEvent e) {
         String nombre = txtNuevaCategoria.getText().trim();
-        if (!nombre.isEmpty()) {
-            movimientoService.crearCategoria(nombre);
-            txtNuevaCategoria.clear();
-            refrescarCategorias();
-            actualizarSaldoActual();
-        } else {
-            mostrarAlerta("Error", "Debe ingresar un nombre de categoría.", Alert.AlertType.WARNING);
+        if (nombre.isEmpty()) {
+            alert("Ingrese un nombre.");
+            return;
         }
+
+        Categoria c = movimientoService.crearCategoria(nombre, usuarioActual);
+        if (c == null) {
+            alert("Ya existe una categoría con ese nombre.");
+            return;
+        }
+
+        txtNuevaCategoria.clear();
+        refrescarTodo();
     }
 
     @FXML
     public void asignarPresupuesto(ActionEvent e) {
-        String categoria = cbxCategoriaPresupuesto.getValue();
-        if (categoria != null && !txtPresupuesto.getText().isEmpty()) {
-            try {
-                double monto = Double.parseDouble(txtPresupuesto.getText());
-                movimientoService.asignarPresupuesto(categoria, monto);
-                txtPresupuesto.clear();
-                refrescarCategorias();
-                actualizarSaldoActual();
-            } catch (NumberFormatException ex) {
-                mostrarAlerta("Error", "Monto inválido.", Alert.AlertType.ERROR);
-            }
-        } else {
-            mostrarAlerta("Error", "Seleccione una categoría y un monto.", Alert.AlertType.WARNING);
+        String cat = cbxPresupuesto.getValue();
+        if (cat == null) {
+            alert("Seleccione una categoría.");
+            return;
         }
+
+        double monto;
+        try { monto = Double.parseDouble(txtPresupuesto.getText()); }
+        catch (Exception ex) {
+            alert("Monto inválido.");
+            return;
+        }
+
+        movimientoService.asignarPresupuesto(cat, monto, usuarioActual);
+        txtPresupuesto.clear();
+        refrescarTodo();
     }
 
     @FXML
     public void asignarLimite(ActionEvent e) {
-        String categoria = cbxCategoriaLimite.getValue();
-        if (categoria != null && !txtLimite.getText().isEmpty()) {
-            try {
-                double limite = Double.parseDouble(txtLimite.getText());
-                movimientoService.asignarLimite(categoria, limite);
-                txtLimite.clear();
-                refrescarCategorias();
-            } catch (NumberFormatException ex) {
-                mostrarAlerta("Error", "Límite inválido.", Alert.AlertType.ERROR);
-            }
-        } else {
-            mostrarAlerta("Error", "Seleccione una categoría y un límite.", Alert.AlertType.WARNING);
+        String cat = cbxLimite.getValue();
+        if (cat == null) {
+            alert("Seleccione una categoría.");
+            return;
         }
+
+        double limite;
+        try { limite = Double.parseDouble(txtLimite.getText()); }
+        catch (Exception ex) {
+            alert("Límite inválido.");
+            return;
+        }
+
+        movimientoService.asignarLimite(cat, limite, usuarioActual);
+        txtLimite.clear();
+        refrescarTodo();
     }
 
     @FXML
     public void editarOCategorias(ActionEvent e) {
-        String categoria = cbxCategoriaEditar.getValue();
-        if (categoria == null) {
-            mostrarAlerta("Error", "Seleccione una categoría para editar o eliminar.", Alert.AlertType.WARNING);
-            return;
-        }
-
-        Categoria cat = movimientoService.listarCategorias().stream()
-                .filter(c -> c.getNombre().equals(categoria))
-                .findFirst().orElse(null);
-
+        String cat = cbxEditar.getValue();
         if (cat == null) {
-            mostrarAlerta("Error", "Categoría no encontrada.", Alert.AlertType.ERROR);
+            alert("Seleccione una categoría.");
             return;
         }
 
-        TextInputDialog dialog = new TextInputDialog(cat.getNombre());
-        dialog.setTitle("Editar o Eliminar Categoría");
-        dialog.setHeaderText("Modificar nombre o eliminar categoría");
-        dialog.setContentText("Nuevo nombre (déjelo vacío para eliminar):");
+        TextInputDialog dlg = new TextInputDialog(cat);
+        dlg.setTitle("Editar Categoría");
+        dlg.setHeaderText("Ingrese nuevo nombre (o vacío para eliminar)");
+        dlg.setContentText("Nuevo nombre:");
 
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            String nuevo = result.get().trim();
+        var res = dlg.showAndWait();
+        if (res.isPresent()) {
+            String nuevo = res.get().trim();
             if (nuevo.isEmpty()) {
-                movimientoService.eliminarCategoria(categoria);
-                mostrarAlerta("Eliminada", "Categoría eliminada correctamente.", Alert.AlertType.INFORMATION);
+                movimientoService.eliminarCategoria(cat, usuarioActual);
             } else {
-                movimientoService.editarCategoria(categoria, nuevo, cat.getPresupuesto());
-                mostrarAlerta("Actualizada", "Categoría actualizada correctamente.", Alert.AlertType.INFORMATION);
+                movimientoService.editarCategoria(cat, nuevo, usuarioActual);
             }
-            refrescarCategorias();
-            actualizarSaldoActual();
+            refrescarTodo();
         }
     }
 
-    private void refrescarCategorias() {
-        listaCategorias.setAll(movimientoService.listarCategorias());
-        tablaCategorias.setItems(listaCategorias);
-
-        var categorias = FXCollections.observableArrayList(movimientoService.obtenerCategorias());
-        cbxCategoriaPresupuesto.setItems(categorias);
-        cbxCategoriaLimite.setItems(categorias);
-        cbxCategoriaEditar.setItems(categorias);
-    }
-
-    private void actualizarSaldoActual() {
-        double saldo = movimientoService.listarCategorias()
-                .stream()
-                .mapToDouble(Categoria::getSaldoDisponible)
-                .sum();
-        lblSaldoActual.setText("Saldo total: S/ " + String.format("%.2f", saldo));
-    }
-
-    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
+    private void alert(String m) {
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setHeaderText(null);
+        a.setContentText(m);
+        a.show();
     }
 }

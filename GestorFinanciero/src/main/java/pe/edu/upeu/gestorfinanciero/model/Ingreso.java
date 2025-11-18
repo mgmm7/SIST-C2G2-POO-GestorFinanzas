@@ -3,6 +3,10 @@ package pe.edu.upeu.gestorfinanciero.model;
 import jakarta.persistence.*;
 import javafx.beans.property.*;
 import java.time.LocalDate;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import pe.edu.upeu.gestorfinanciero.model.Usuario;
+
 
 @Entity
 @Table(name = "ingreso")
@@ -17,14 +21,21 @@ public class Ingreso {
     private double monto;
     private double saldo;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
     public Ingreso() {}
 
-    public Ingreso(String fecha, String descripcion, double monto, double saldo) {
+    public Ingreso(String fecha, String descripcion, double monto, double saldo, Usuario usuario) {
         this.fecha = fecha;
         this.descripcion = descripcion;
         this.monto = monto;
         this.saldo = saldo;
+        this.usuario = usuario;
     }
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

@@ -5,8 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import pe.edu.upeu.gestorfinanciero.config.UsuarioSesion;
+import pe.edu.upeu.gestorfinanciero.model.Categoria;
 import pe.edu.upeu.gestorfinanciero.model.Egreso;
+import pe.edu.upeu.gestorfinanciero.model.Usuario;
 import pe.edu.upeu.gestorfinanciero.service.EgresoService;
 import pe.edu.upeu.gestorfinanciero.service.MovimientoService;
 
@@ -14,130 +18,149 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Controller
+@RequiredArgsConstructor
 public class EgresoController {
 
     @FXML private ComboBox<String> cbxCategoria;
     @FXML private TextField txtDescripcion;
     @FXML private TextField txtMonto;
     @FXML private Label lblSaldoEgreso;
-    @FXML private TableView<Egreso> tablaEgresos;
+
+    @FXML private TableView<Egreso> tabla;
     @FXML private TableColumn<Egreso, String> colFecha;
     @FXML private TableColumn<Egreso, String> colDescripcion;
-    @FXML private TableColumn<Egreso, Number> colMonto;
-    @FXML private TableColumn<Egreso, Number> colSaldo;
+    @FXML private TableColumn<Egreso, Double> colMonto;
+    @FXML private TableColumn<Egreso, Double> colSaldo;
 
-    private final ObservableList<Egreso> listaEgresos = FXCollections.observableArrayList();
+    private final ObservableList<Egreso> lista = FXCollections.observableArrayList();
+
+    private final UsuarioSesion usuarioSesion;
     private final EgresoService egresoService;
     private final MovimientoService movimientoService;
 
-    public EgresoController(EgresoService egresoService, MovimientoService movimientoService) {
-        this.egresoService = egresoService;
-        this.movimientoService = movimientoService;
-    }
+    private Usuario usuarioActual;
 
     @FXML
     public void initialize() {
-        colFecha.setCellValueFactory(data -> data.getValue().fechaProperty());
-        colDescripcion.setCellValueFactory(data -> data.getValue().descripcionProperty());
-        colMonto.setCellValueFactory(data -> data.getValue().montoProperty());
-        colSaldo.setCellValueFactory(data -> data.getValue().saldoProperty());
 
-        cbxCategoria.setItems(FXCollections.observableArrayList(movimientoService.obtenerCategorias()));
+        usuarioActual = usuarioSesion.getUsuarioActual();
 
-        listaEgresos.clear(); // ✅ evita duplicados
-        listaEgresos.addAll(egresoService.listarEgresos());
-        tablaEgresos.setItems(listaEgresos);
+        colFecha.setCellValueFactory(e -> new javafx.beans.property.SimpleStringProperty(e.getValue().getFecha()));
+        colDescripcion.setCellValueFactory(e -> new javafx.beans.property.SimpleStringProperty(e.getValue().getDescripcion()));
+        colMonto.setCellValueFactory(e -> new javafx.beans.property.SimpleDoubleProperty(e.getValue().getMonto()).asObject());
+        colSaldo.setCellValueFactory(e -> new javafx.beans.property.SimpleDoubleProperty(e.getValue().getSaldo()).asObject());
 
-        actualizarSaldoEgreso();
+        refrescarCategorias();
+        refrescarTabla();
+    }
+
+    private void refrescarCategorias() {
+        cbxCategoria.setItems(FXCollections.observableArrayList(
+                movimientoService.listarCategoriasUsuario(usuarioActual)
+                        .stream()
+                        .map(Categoria::getNombre)
+                        .toList()
+        ));
+    }
+
+    private void refrescarTabla() {
+        lista.setAll(egresoService.listar(usuarioActual));
+        tabla.setItems(lista);
+
+        double total = lista.stream().mapToDouble(Egreso::getMonto).sum();
+        lblSaldoEgreso.setText("Total gastado: S/ " + String.format("%.2f", total));
     }
 
     @FXML
-    public void registrarEgreso(ActionEvent e) {
+    public void registrar(ActionEvent e) {
+
         String categoria = cbxCategoria.getValue();
-        String descripcion = txtDescripcion.getText();
-        String fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String desc = txtDescripcion.getText().trim();
+        String montoTxt = txtMonto.getText().trim();
+
+        if (categoria == null || desc.isEmpty() || montoTxt.isEmpty()) {
+            alert("Complete todos los campos.");
+            return;
+        }
+
         double monto;
-
-        if (categoria == null || descripcion.isEmpty() || txtMonto.getText().isEmpty()) {
-            mostrarAlerta("Error", "Debes llenar todos los campos.", Alert.AlertType.WARNING);
+        try { monto = Double.parseDouble(montoTxt); }
+        catch (Exception ex) {
+            alert("Monto inválido.");
             return;
         }
 
-        try {
-            monto = Double.parseDouble(txtMonto.getText());
-        } catch (NumberFormatException ex) {
-            mostrarAlerta("Error", "Monto inválido.", Alert.AlertType.ERROR);
-            return;
-        }
+        double saldoCategoria = movimientoService.obtenerSaldoCategoria(categoria, usuarioActual);
+        double limite = movimientoService.obtenerLimiteCategoria(categoria, usuarioActual);
 
-        double saldoCategoria = movimientoService.obtenerSaldoCategoria(categoria);
-        double limite = movimientoService.obtenerLimiteCategoria(categoria);
-
-        if (saldoCategoria - monto < -limite) {
-            mostrarAlerta("Límite excedido",
-                    "No puedes registrar este gasto. Excede el límite asignado.",
-                    Alert.AlertType.ERROR);
+        if ((saldoCategoria - monto) < -limite) {
+            alert("Este gasto excede el límite de la categoría.");
             return;
         }
 
         double nuevoSaldo = saldoCategoria - monto;
 
-        Egreso egreso = new Egreso(fecha, descripcion, monto, nuevoSaldo, categoria);
-        egresoService.guardarEgreso(egreso);
-        movimientoService.actualizarSaldoCategoria(categoria, nuevoSaldo);
+        String fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-        listaEgresos.add(egreso);
-        actualizarSaldoEgreso();
+        Egreso eg = new Egreso(fecha, desc, monto, nuevoSaldo, categoria, usuarioActual);
+        egresoService.guardar(eg);
 
-        limpiarCampos();
+        // actualizar saldo de categoría
+        movimientoService.actualizarSaldoCategoria(categoria, nuevoSaldo, usuarioActual);
+
+        limpiar();
+        refrescarTabla();
     }
 
     @FXML
-    public void eliminarEgreso(ActionEvent e) {
-        Egreso seleccionado = tablaEgresos.getSelectionModel().getSelectedItem();
-        if (seleccionado == null) {
-            mostrarAlerta("Advertencia", "Selecciona un registro para eliminar.", Alert.AlertType.WARNING);
+    public void eliminar(ActionEvent e) {
+        Egreso sel = tabla.getSelectionModel().getSelectedItem();
+        if (sel == null) {
+            alert("Seleccione un registro.");
             return;
         }
 
-        egresoService.eliminarEgreso(seleccionado);
-        listaEgresos.remove(seleccionado);
-        actualizarSaldoEgreso();
+        // devolver saldo a la categoría
+        double saldoCat = movimientoService.obtenerSaldoCategoria(sel.getCategoria(), usuarioActual);
+        double nuevoSaldo = saldoCat + sel.getMonto();
+        movimientoService.actualizarSaldoCategoria(sel.getCategoria(), nuevoSaldo, usuarioActual);
+
+        egresoService.eliminar(sel);
+
+        refrescarTabla();
     }
 
     @FXML
-    public void editarEgreso(ActionEvent e) {
-        Egreso seleccionado = tablaEgresos.getSelectionModel().getSelectedItem();
-        if (seleccionado == null) {
-            mostrarAlerta("Advertencia", "Selecciona un registro para editar.", Alert.AlertType.WARNING);
+    public void editar(ActionEvent e) {
+        Egreso sel = tabla.getSelectionModel().getSelectedItem();
+        if (sel == null) {
+            alert("Seleccione un registro.");
             return;
         }
 
-        txtDescripcion.setText(seleccionado.getDescripcion());
-        txtMonto.setText(String.valueOf(seleccionado.getMonto()));
-        cbxCategoria.setValue(seleccionado.getCategoria());
+        // volver saldo previo
+        double saldoCat = movimientoService.obtenerSaldoCategoria(sel.getCategoria(), usuarioActual);
+        movimientoService.actualizarSaldoCategoria(sel.getCategoria(), saldoCat + sel.getMonto(), usuarioActual);
 
-        listaEgresos.remove(seleccionado);
-        egresoService.eliminarEgreso(seleccionado);
-        actualizarSaldoEgreso();
+        // cargar campos
+        cbxCategoria.setValue(sel.getCategoria());
+        txtDescripcion.setText(sel.getDescripcion());
+        txtMonto.setText(String.valueOf(sel.getMonto()));
+
+        egresoService.eliminar(sel);
+        refrescarTabla();
     }
 
-    private void actualizarSaldoEgreso() {
-        double total = listaEgresos.stream().mapToDouble(Egreso::getSaldo).sum();
-        lblSaldoEgreso.setText("Saldo restante: S/ " + String.format("%.2f", total));
-    }
-
-    private void limpiarCampos() {
+    private void limpiar() {
         txtDescripcion.clear();
         txtMonto.clear();
         cbxCategoria.getSelectionModel().clearSelection();
     }
 
-    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
+    private void alert(String m) {
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setHeaderText(null);
+        a.setContentText(m);
+        a.show();
     }
 }

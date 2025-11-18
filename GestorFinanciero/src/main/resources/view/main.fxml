@@ -1,25 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
+<BorderPane fx:id="mainPane"
+            xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="pe.edu.upeu.gestorfinanciero.controller.MainController"
-            fx:id="mainPane">
+            prefWidth="1000" prefHeight="650"
+            stylesheets="@../css/main.css">
+
+
     <left>
-        <VBox fx:id="menuLateral" spacing="10" style="-fx-background-color: #2B2D42; -fx-padding: 10;">
-            <children>
-                <Button text="Usuario" onAction="#abrirUsuario" prefWidth="150"/>
-                <Button text="Ingresos" onAction="#abrirIngresos" prefWidth="150"/>
-                <Button text="Egresos" onAction="#abrirEgresos" prefWidth="150"/>
-                <Button text="Movimiento de saldo" onAction="#abrirMovimientos" prefWidth="150"/>
-                <Button text="Reporte" onAction="#abrirReporte" prefWidth="150"/>
-                <Button text="Meta / Ahorro" onAction="#abrirMeta" prefWidth="150"/>
-                <Button text="Configuración" onAction="#abrirConfiguracion" prefWidth="150"/>
-            </children>
+        <VBox fx:id="menuLateral" spacing="14" alignment="TOP_CENTER"
+              prefWidth="150" styleClass="sidebar-compact">
+
+
+            <StackPane alignment="CENTER" prefWidth="90" prefHeight="90" styleClass="avatar-wrap">
+                <ImageView fx:id="imgAvatar"
+                           fitWidth="70"
+                           fitHeight="70"
+                           pickOnBounds="true"
+                           preserveRatio="true" />
+            </StackPane>
+
+
+            <Label fx:id="lblUsuario"
+                   text="Usuario"
+                   wrapText="true"
+                   styleClass="sidebar-user"/>
+
+            <Separator prefWidth="120"/>
+
+            <VBox spacing="8" alignment="TOP_CENTER">
+
+                <Button text="Usuario"           onAction="#abrirUsuario"        styleClass="sidebar-btn"/>
+                <Button text="Ingresos"          onAction="#abrirIngresos"       styleClass="sidebar-btn"/>
+                <Button text="Egresos"           onAction="#abrirEgresos"        styleClass="sidebar-btn"/>
+                <Button text="Movimientos"       onAction="#abrirMovimientos"    styleClass="sidebar-btn"/>
+                <Button text="Reporte"           onAction="#abrirReporte"        styleClass="sidebar-btn"/>
+                <Button text="Meta"              onAction="#abrirMeta"           styleClass="sidebar-btn"/>
+                <Button text="Configuración"     onAction="#abrirConfiguracion"  styleClass="sidebar-btn"/>
+
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+
+            <Button text="Cerrar sesión"
+                    onAction="#cerrarSesion"
+                    styleClass="sidebar-exit"/>
         </VBox>
     </left>
+
+
     <center>
-        <AnchorPane fx:id="contenidoCentral" />
+        <AnchorPane styleClass="center-wrapper">
+            <VBox fx:id="contenedorCard" alignment="TOP_CENTER"
+                  spacing="10" layoutX="30" layoutY="20"
+                  prefWidth="760" prefHeight="600"
+                  styleClass="center-card">
+
+                <AnchorPane fx:id="contenidoCentral"
+                            prefWidth="730" prefHeight="560"/>
+            </VBox>
+        </AnchorPane>
     </center>
+
 </BorderPane>

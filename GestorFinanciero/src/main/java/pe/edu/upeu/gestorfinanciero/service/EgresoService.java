@@ -3,10 +3,9 @@ package pe.edu.upeu.gestorfinanciero.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pe.edu.upeu.gestorfinanciero.model.Egreso;
+import pe.edu.upeu.gestorfinanciero.model.Usuario;
 import pe.edu.upeu.gestorfinanciero.repository.EgresoRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -15,21 +14,26 @@ public class EgresoService {
 
     private final EgresoRepository egresoRepository;
 
-    public void guardarEgreso(Egreso egreso) {
-        egresoRepository.save(egreso);
+    public void guardar(Egreso e) {
+        egresoRepository.save(e);
     }
 
-    public List<Egreso> listarEgresos() {
-        return egresoRepository.findAll();
+    public List<Egreso> listar(Usuario u) {
+        return egresoRepository.findByUsuarioOrderByIdDesc(u);
     }
 
-    public void eliminarEgreso(Egreso egreso) {
-        egresoRepository.delete(egreso);
+    public void eliminar(Egreso e) {
+        egresoRepository.delete(e);
     }
 
-    public double totalEgresos() {
-        return egresoRepository.findAll()
-                .stream().mapToDouble(Egreso::getMonto)
-                .sum();
+    public double total(Usuario u) {
+        return listar(u).stream().mapToDouble(Egreso::getMonto).sum();
     }
+    public List<Egreso> listarPorCategoria(Usuario usuario, String categoria) {
+        return egresoRepository.findByUsuarioOrderByIdDesc(usuario)
+                .stream()
+                .filter(e -> e.getCategoria().equals(categoria))
+                .toList();
+    }
+
 }

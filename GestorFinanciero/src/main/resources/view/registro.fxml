@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pe.edu.upeu.gestorfinanciero.controller.RegistroController"
+            stylesheets="@../css/registro.css"
+            prefWidth="860" prefHeight="540">
+
+    <children>
+
+        <!-- Fondo con degradado más colorido -->
+        <AnchorPane prefWidth="860" prefHeight="540"
+                    style="-fx-background-color: linear-gradient(to bottom right, #17141f, #1f1135, #2b0b45);">
+        </AnchorPane>
+
+        <!-- Card glass con borde neón suave -->
+        <VBox alignment="CENTER" spacing="20"
+              layoutX="230" layoutY="80"
+              prefWidth="400" prefHeight="380"
+              styleClass="glass-card"
+              style="-fx-border-color: rgba(140, 82, 255, 0.5);
+                     -fx-effect: dropshadow(gaussian, rgba(140, 82, 255, 0.25), 18, 0.4, 0, 0);">
+
+            <!-- Título con color neón -->
+            <Label text="Crear Cuenta"
+                   styleClass="titulo-principal"
+                   style="-fx-text-fill: #b88cff;" />
+
+            <!-- Inputs -->
+            <TextField fx:id="txtUsername"
+                       promptText="Nombre de usuario"
+                       prefWidth="270"
+                       style="-fx-background-color: rgba(255,255,255,0.12);" />
+
+            <TextField fx:id="txtEmail"
+                       promptText="Correo electrónico (opcional)"
+                       prefWidth="270"
+                       style="-fx-background-color: rgba(255,255,255,0.12);" />
+
+            <PasswordField fx:id="txtPassword"
+                           promptText="Contraseña"
+                           prefWidth="270"
+                           style="-fx-background-color: rgba(255,255,255,0.12);" />
+
+            <!-- Botones más vibrantes -->
+            <HBox spacing="16" alignment="CENTER">
+                <Button text="Registrar"
+                        onAction="#registrar"
+                        styleClass="btn-primario"
+                        prefWidth="130"
+                />
+
+                <Button text="Volver"
+                        onAction="#volver"
+                        styleClass="btn-secundario"
+                        prefWidth="130"
+                />
+            </HBox>
+
+        </VBox>
+
+    </children>
+</AnchorPane>

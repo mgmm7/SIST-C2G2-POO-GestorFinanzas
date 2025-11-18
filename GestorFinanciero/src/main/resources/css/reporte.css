@@ -1,0 +1,50 @@
+/* reporte.css - estilo neón para la vista de reportes */
+
+.report-left {
+    -fx-background-color: rgba(18,12,28,0.5);
+    -fx-padding: 18;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(120,70,240,0.18), 20, 0.2, 0, 0);
+}
+
+.report-title {
+    -fx-font-size: 20px;
+    -fx-text-fill: linear-gradient(to bottom, #f3e9ff, #c6a6ff);
+    -fx-font-weight: bold;
+}
+
+.small-label {
+    -fx-text-fill: #dcd0ff;
+    -fx-font-size: 12px;
+}
+
+.totales {
+    -fx-text-fill: #e7d7ff;
+    -fx-font-weight: bold;
+}
+
+.saldo {
+    -fx-text-fill: #b2ffcf;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.report-center {
+    -fx-background-color: transparent;
+    -fx-padding: 12;
+}
+
+.report-right {
+    -fx-background-color: linear-gradient(to bottom right, rgba(140,82,255,0.08), rgba(90,50,160,0.06));
+    -fx-padding: 12;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+.avatar-card {
+    -fx-background-color: linear-gradient(to bottom right, #6b39ff, #a38bff);
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+    -fx-effect: dropshadow(gaussian, rgba(120,70,240,0.25), 18, 0.2, 0, 0);
+}
