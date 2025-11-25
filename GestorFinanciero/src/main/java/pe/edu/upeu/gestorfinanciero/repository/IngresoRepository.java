@@ -12,4 +12,6 @@ public interface IngresoRepository extends JpaRepository<Ingreso, Long> {
 
     List<Ingreso> findByUsuarioOrderByIdDesc(Usuario usuario);
 
+    // nuevo: buscar por usuario y descripción parcial (para localizar ingresos creados por aportes)
+    List<Ingreso> findByUsuarioAndDescripcionContaining(Usuario usuario, String descripcionPart);
 }

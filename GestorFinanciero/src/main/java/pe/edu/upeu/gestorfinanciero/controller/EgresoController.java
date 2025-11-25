@@ -8,9 +8,9 @@ import javafx.scene.control.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import pe.edu.upeu.gestorfinanciero.config.UsuarioSesion;
-import pe.edu.upeu.gestorfinanciero.model.Categoria;
 import pe.edu.upeu.gestorfinanciero.model.Egreso;
 import pe.edu.upeu.gestorfinanciero.model.Usuario;
+import pe.edu.upeu.gestorfinanciero.service.CurrencyService;
 import pe.edu.upeu.gestorfinanciero.service.EgresoService;
 import pe.edu.upeu.gestorfinanciero.service.MovimientoService;
 
@@ -24,7 +24,11 @@ public class EgresoController {
     @FXML private ComboBox<String> cbxCategoria;
     @FXML private TextField txtDescripcion;
     @FXML private TextField txtMonto;
+    @FXML private ComboBox<String> cmbMoneda;
+
     @FXML private Label lblSaldoEgreso;
+    @FXML private Label lblPresupuestoRestante;
+    @FXML private Label lblLimiteCategoria;
 
     @FXML private TableView<Egreso> tabla;
     @FXML private TableColumn<Egreso, String> colFecha;
@@ -37,43 +41,95 @@ public class EgresoController {
     private final UsuarioSesion usuarioSesion;
     private final EgresoService egresoService;
     private final MovimientoService movimientoService;
+    private final CurrencyService currencyService;
 
     private Usuario usuarioActual;
+    private final DateTimeFormatter F = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @FXML
     public void initialize() {
-
         usuarioActual = usuarioSesion.getUsuarioActual();
 
         colFecha.setCellValueFactory(e -> new javafx.beans.property.SimpleStringProperty(e.getValue().getFecha()));
         colDescripcion.setCellValueFactory(e -> new javafx.beans.property.SimpleStringProperty(e.getValue().getDescripcion()));
-        colMonto.setCellValueFactory(e -> new javafx.beans.property.SimpleDoubleProperty(e.getValue().getMonto()).asObject());
-        colSaldo.setCellValueFactory(e -> new javafx.beans.property.SimpleDoubleProperty(e.getValue().getSaldo()).asObject());
+
+        colMonto.setCellValueFactory(e -> {
+            double pen = e.getValue().getMonto();
+            double conv = currencyService.convertFromPen(pen, cmbMoneda.getValue());
+            return new javafx.beans.property.SimpleDoubleProperty(conv).asObject();
+        });
+
+        colSaldo.setCellValueFactory(e -> {
+            double pen = e.getValue().getSaldo();
+            double conv = currencyService.convertFromPen(pen, cmbMoneda.getValue());
+            return new javafx.beans.property.SimpleDoubleProperty(conv).asObject();
+        });
+
+        cmbMoneda.setItems(FXCollections.observableArrayList("PEN", "USD", "EUR"));
+        cmbMoneda.getSelectionModel().select("PEN");
+        cmbMoneda.setOnAction(e -> actualizarCategoriaSeleccionada());
 
         refrescarCategorias();
-        refrescarTabla();
+        actualizarCategoriaSeleccionada();
+
+        cbxCategoria.setOnAction(e -> actualizarCategoriaSeleccionada());
     }
 
     private void refrescarCategorias() {
         cbxCategoria.setItems(FXCollections.observableArrayList(
                 movimientoService.listarCategoriasUsuario(usuarioActual)
                         .stream()
-                        .map(Categoria::getNombre)
+                        .map(c -> c.getNombre())
                         .toList()
         ));
     }
 
-    private void refrescarTabla() {
-        lista.setAll(egresoService.listar(usuarioActual));
+    private void actualizarCategoriaSeleccionada() {
+        String categoria = cbxCategoria.getValue();
+
+        // Filtrar por categoría
+        if (categoria == null) {
+            lista.setAll(egresoService.listar(usuarioActual));
+        } else {
+            lista.setAll(egresoService.listar(usuarioActual).stream()
+                    .filter(e -> e.getCategoria().equals(categoria))
+                    .toList());
+        }
         tabla.setItems(lista);
 
-        double total = lista.stream().mapToDouble(Egreso::getMonto).sum();
-        lblSaldoEgreso.setText("Total gastado: S/ " + String.format("%.2f", total));
+        // Actualizar saldo total de egresos
+        double totalPen = lista.stream().mapToDouble(Egreso::getMonto).sum();
+        double totalConv = currencyService.convertFromPen(totalPen, cmbMoneda.getValue());
+        lblSaldoEgreso.setText("Total gastado: " + simbolo() + String.format("%.2f", totalConv));
+
+        // Actualizar presupuesto y límite de la categoría
+        if (categoria != null) {
+            double saldoCat = movimientoService.obtenerSaldoCategoria(categoria, usuarioActual);
+            double limite = movimientoService.obtenerLimiteCategoria(categoria, usuarioActual);
+
+            double saldoConv = currencyService.convertFromPen(saldoCat, cmbMoneda.getValue());
+            double limiteConv = currencyService.convertFromPen(limite, cmbMoneda.getValue());
+
+            lblPresupuestoRestante.setText("Presupuesto restante: " + simbolo() + String.format("%.2f", saldoConv));
+            lblLimiteCategoria.setText("Límite: " + simbolo() + String.format("%.2f", limiteConv));
+        } else {
+            lblPresupuestoRestante.setText("Presupuesto restante: -");
+            lblLimiteCategoria.setText("Límite: -");
+        }
+
+        tabla.refresh();
+    }
+
+    private String simbolo() {
+        return switch (cmbMoneda.getValue()) {
+            case "USD" -> "$ ";
+            case "EUR" -> "€ ";
+            default -> "S/ ";
+        };
     }
 
     @FXML
     public void registrar(ActionEvent e) {
-
         String categoria = cbxCategoria.getValue();
         String desc = txtDescripcion.getText().trim();
         String montoTxt = txtMonto.getText().trim();
@@ -83,72 +139,60 @@ public class EgresoController {
             return;
         }
 
-        double monto;
-        try { monto = Double.parseDouble(montoTxt); }
-        catch (Exception ex) {
-            alert("Monto inválido.");
-            return;
-        }
+        double montoEnMoneda;
+        try { montoEnMoneda = Double.parseDouble(montoTxt); }
+        catch (Exception ex) { alert("Monto inválido."); return; }
+
+        double montoPen = currencyService.convertToPen(montoEnMoneda, cmbMoneda.getValue());
 
         double saldoCategoria = movimientoService.obtenerSaldoCategoria(categoria, usuarioActual);
         double limite = movimientoService.obtenerLimiteCategoria(categoria, usuarioActual);
 
-        if ((saldoCategoria - monto) < -limite) {
+        if ((saldoCategoria - montoPen) < -limite) {
             alert("Este gasto excede el límite de la categoría.");
             return;
         }
 
-        double nuevoSaldo = saldoCategoria - monto;
+        double nuevoSaldo = saldoCategoria - montoPen;
+        String fecha = LocalDate.now().format(F);
 
-        String fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
-        Egreso eg = new Egreso(fecha, desc, monto, nuevoSaldo, categoria, usuarioActual);
+        Egreso eg = new Egreso(fecha, desc, montoPen, nuevoSaldo, categoria, usuarioActual);
         egresoService.guardar(eg);
-
-        // actualizar saldo de categoría
         movimientoService.actualizarSaldoCategoria(categoria, nuevoSaldo, usuarioActual);
 
         limpiar();
-        refrescarTabla();
+        actualizarCategoriaSeleccionada();
     }
 
     @FXML
     public void eliminar(ActionEvent e) {
         Egreso sel = tabla.getSelectionModel().getSelectedItem();
-        if (sel == null) {
-            alert("Seleccione un registro.");
-            return;
-        }
+        if (sel == null) { alert("Seleccione un registro."); return; }
 
-        // devolver saldo a la categoría
         double saldoCat = movimientoService.obtenerSaldoCategoria(sel.getCategoria(), usuarioActual);
         double nuevoSaldo = saldoCat + sel.getMonto();
         movimientoService.actualizarSaldoCategoria(sel.getCategoria(), nuevoSaldo, usuarioActual);
 
         egresoService.eliminar(sel);
-
-        refrescarTabla();
+        actualizarCategoriaSeleccionada();
     }
 
     @FXML
     public void editar(ActionEvent e) {
         Egreso sel = tabla.getSelectionModel().getSelectedItem();
-        if (sel == null) {
-            alert("Seleccione un registro.");
-            return;
-        }
+        if (sel == null) { alert("Seleccione un registro."); return; }
 
-        // volver saldo previo
-        double saldoCat = movimientoService.obtenerSaldoCategoria(sel.getCategoria(), usuarioActual);
-        movimientoService.actualizarSaldoCategoria(sel.getCategoria(), saldoCat + sel.getMonto(), usuarioActual);
+        movimientoService.actualizarSaldoCategoria(sel.getCategoria(),
+                movimientoService.obtenerSaldoCategoria(sel.getCategoria(), usuarioActual) + sel.getMonto(),
+                usuarioActual);
 
-        // cargar campos
         cbxCategoria.setValue(sel.getCategoria());
         txtDescripcion.setText(sel.getDescripcion());
-        txtMonto.setText(String.valueOf(sel.getMonto()));
+        txtMonto.setText(String.format("%.2f",
+                currencyService.convertFromPen(sel.getMonto(), cmbMoneda.getValue())));
 
         egresoService.eliminar(sel);
-        refrescarTabla();
+        actualizarCategoriaSeleccionada();
     }
 
     private void limpiar() {

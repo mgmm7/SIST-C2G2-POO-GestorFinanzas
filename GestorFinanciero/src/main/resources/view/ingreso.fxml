@@ -15,30 +15,40 @@
                style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #d7b4ff;"/>
 
         <VBox layoutX="20" layoutY="50" spacing="10">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
 
             <HBox spacing="10">
                 <Label text="Monto:" style="-fx-text-fill: #e0b3ff;"/>
-                <TextField fx:id="txtMonto" promptText="Monto del ingreso"
+
+                <TextField fx:id="txtMonto" promptText="Monto del ingreso" prefWidth="120"
                            style="-fx-background-radius: 8; -fx-border-radius: 8;
                                   -fx-background-color: rgba(255,255,255,0.1);
-                                  -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"
-                           prefWidth="120"/>
+                                  -fx-border-color: #bb86fc; -fx-border-width: 1.5;
+                                  -fx-text-fill: #e0b3ff;"/>
+
+                <!-- 💲 Combo de moneda agregado -->
+                <ComboBox fx:id="cmbMoneda" prefWidth="150" promptText="Moneda"
+                          style="-fx-background-radius: 8; -fx-border-radius: 8;
+                                 -fx-background-color: rgba(255,255,255,0.1);
+                                 -fx-border-color: #bb86fc; -fx-border-width: 1.5;
+                                 -fx-text-fill: #e0b3ff;"/>
+
                 <Label text="Descripción:" style="-fx-text-fill: #e0b3ff;"/>
-                <TextField fx:id="txtDescripcion" promptText="Motivo o fuente"
+
+                <TextField fx:id="txtDescripcion" promptText="Motivo o fuente" prefWidth="200"
                            style="-fx-background-radius: 8; -fx-border-radius: 8;
                                   -fx-background-color: rgba(255,255,255,0.1);
-                                  -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"
-                           prefWidth="200"/>
+                                  -fx-border-color: #bb86fc; -fx-border-width: 1.5;
+                                  -fx-text-fill: #e0b3ff;"/>
             </HBox>
 
             <HBox spacing="10">
                 <Button text="Registrar" onAction="#registrar"
                         style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
+
                 <Button text="Editar" onAction="#editar"
                         style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
+
                 <Button text="Eliminar" onAction="#eliminar"
                         style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
             </HBox>
@@ -53,11 +63,11 @@
             <columns>
                 <TableColumn fx:id="colFecha" text="Fecha" prefWidth="100"/>
                 <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="180"/>
-                <TableColumn fx:id="colMonto" text="Monto (S/)" prefWidth="120"/>
+                <TableColumn fx:id="colMonto" text="Monto" prefWidth="120"/>
                 <TableColumn fx:id="colSaldo" text="Saldo" prefWidth="120"/>
             </columns>
         </TableView>
 
     </children>
-</AnchorPane>
 
+</AnchorPane>

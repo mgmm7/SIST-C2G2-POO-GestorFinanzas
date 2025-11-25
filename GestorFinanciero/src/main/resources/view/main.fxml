@@ -11,11 +11,9 @@
             prefWidth="1000" prefHeight="650"
             stylesheets="@../css/main.css">
 
-
     <left>
         <VBox fx:id="menuLateral" spacing="14" alignment="TOP_CENTER"
               prefWidth="150" styleClass="sidebar-compact">
-
 
             <StackPane alignment="CENTER" prefWidth="90" prefHeight="90" styleClass="avatar-wrap">
                 <ImageView fx:id="imgAvatar"
@@ -25,7 +23,6 @@
                            preserveRatio="true" />
             </StackPane>
 
-
             <Label fx:id="lblUsuario"
                    text="Usuario"
                    wrapText="true"
@@ -34,26 +31,23 @@
             <Separator prefWidth="120"/>
 
             <VBox spacing="8" alignment="TOP_CENTER">
-
-                <Button text="Usuario"           onAction="#abrirUsuario"        styleClass="sidebar-btn"/>
-                <Button text="Ingresos"          onAction="#abrirIngresos"       styleClass="sidebar-btn"/>
-                <Button text="Egresos"           onAction="#abrirEgresos"        styleClass="sidebar-btn"/>
-                <Button text="Movimientos"       onAction="#abrirMovimientos"    styleClass="sidebar-btn"/>
-                <Button text="Reporte"           onAction="#abrirReporte"        styleClass="sidebar-btn"/>
-                <Button text="Meta"              onAction="#abrirMeta"           styleClass="sidebar-btn"/>
-                <Button text="Configuración"     onAction="#abrirConfiguracion"  styleClass="sidebar-btn"/>
-
+                <!-- Botones con mismo tamaño -->
+                <Button text="Usuario"       onAction="#abrirUsuario"     styleClass="sidebar-btn" prefWidth="120" prefHeight="40"/>
+                <Button text="Ingresos"      onAction="#abrirIngresos"    styleClass="sidebar-btn" prefWidth="120" prefHeight="40"/>
+                <Button text="Egresos"       onAction="#abrirEgresos"     styleClass="sidebar-btn" prefWidth="120" prefHeight="40"/>
+                <Button text="Movimientos"   onAction="#abrirMovimientos" styleClass="sidebar-btn" prefWidth="120" prefHeight="40"/>
+                <Button text="Reporte"       onAction="#abrirReporte"     styleClass="sidebar-btn" prefWidth="120" prefHeight="40"/>
+                <Button text="Meta"          onAction="#abrirMeta"        styleClass="sidebar-btn" prefWidth="120" prefHeight="40"/>
             </VBox>
 
             <Region VBox.vgrow="ALWAYS"/>
 
-
             <Button text="Cerrar sesión"
                     onAction="#cerrarSesion"
-                    styleClass="sidebar-exit"/>
+                    styleClass="sidebar-exit"
+                    prefWidth="120" prefHeight="40"/>
         </VBox>
     </left>
-
 
     <center>
         <AnchorPane styleClass="center-wrapper">

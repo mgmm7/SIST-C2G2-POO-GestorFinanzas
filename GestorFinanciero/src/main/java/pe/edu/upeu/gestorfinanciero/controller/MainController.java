@@ -50,7 +50,7 @@ public class MainController {
     public void abrirMovimientos(ActionEvent e){ cargarVista("movimiento.fxml"); }
     public void abrirReporte(ActionEvent e){ cargarVista("reporte.fxml"); }
     public void abrirMeta(ActionEvent e){ cargarVista("meta.fxml"); }
-    public void abrirConfiguracion(ActionEvent e){ cargarVista("configuracion.fxml"); }
+
 
     // ----------- CERRAR SESIÓN ----------------
     public void cerrarSesion(ActionEvent event) {

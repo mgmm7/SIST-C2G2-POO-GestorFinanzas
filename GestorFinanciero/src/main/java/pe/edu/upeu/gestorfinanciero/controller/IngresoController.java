@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import pe.edu.upeu.gestorfinanciero.config.UsuarioSesion;
 import pe.edu.upeu.gestorfinanciero.model.Ingreso;
 import pe.edu.upeu.gestorfinanciero.model.Usuario;
+import pe.edu.upeu.gestorfinanciero.service.CurrencyService;
 import pe.edu.upeu.gestorfinanciero.service.IngresoService;
 
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public class IngresoController {
     @FXML private TextField txtDescripcion;
     @FXML private TextField txtMonto;
     @FXML private Label lblSaldoIngreso;
+    @FXML private ComboBox<String> cmbMoneda;
 
     @FXML private TableView<Ingreso> tabla;
     @FXML private TableColumn<Ingreso, String> colFecha;
@@ -33,53 +35,62 @@ public class IngresoController {
 
     private final UsuarioSesion usuarioSesion;
     private final IngresoService ingresoService;
+    private final CurrencyService currencyService;
 
     private Usuario usuarioActual;
+    private final DateTimeFormatter F = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @FXML
     public void initialize() {
-
         usuarioActual = usuarioSesion.getUsuarioActual();
 
         colFecha.setCellValueFactory(i -> new javafx.beans.property.SimpleStringProperty(i.getValue().getFecha()));
         colDescripcion.setCellValueFactory(i -> new javafx.beans.property.SimpleStringProperty(i.getValue().getDescripcion()));
-        colMonto.setCellValueFactory(i -> new javafx.beans.property.SimpleDoubleProperty(i.getValue().getMonto()).asObject());
-        colSaldo.setCellValueFactory(i -> new javafx.beans.property.SimpleDoubleProperty(i.getValue().getSaldo()).asObject());
+
+        colMonto.setCellValueFactory(i -> {
+            double pen = i.getValue().getMonto();
+            double conv = currencyService.convertFromPen(pen, cmbMoneda.getValue());
+            return new javafx.beans.property.SimpleDoubleProperty(conv).asObject();
+        });
+
+        colSaldo.setCellValueFactory(i -> {
+            double pen = i.getValue().getSaldo();
+            double conv = currencyService.convertFromPen(pen, cmbMoneda.getValue());
+            return new javafx.beans.property.SimpleDoubleProperty(conv).asObject();
+        });
+
+        cmbMoneda.setItems(FXCollections.observableArrayList("PEN", "USD", "EUR"));
+        cmbMoneda.getSelectionModel().select("PEN");
+        cmbMoneda.setOnAction(e -> refrescarTabla());
 
         refrescarTabla();
     }
 
-    private void refrescarTabla() {
-        lista.setAll(ingresoService.listar(usuarioActual));
-        tabla.setItems(lista);
-
-        double total = lista.stream().mapToDouble(Ingreso::getMonto).sum();
-        lblSaldoIngreso.setText("Total Ingresos: S/ " + String.format("%.2f", total));
-    }
-
     @FXML
     public void registrar(ActionEvent e) {
-        String desc = txtDescripcion.getText().trim();
-        String montoTxt = txtMonto.getText().trim();
 
-        if (desc.isEmpty() || montoTxt.isEmpty()) {
+        if (txtDescripcion.getText().isEmpty() || txtMonto.getText().isEmpty()) {
             alert("Complete todos los campos.");
             return;
         }
 
-        double monto;
-        try { monto = Double.parseDouble(montoTxt); }
+        double montoEnMoneda;
+        try { montoEnMoneda = Double.parseDouble(txtMonto.getText()); }
         catch (Exception ex) {
             alert("Monto inválido.");
             return;
         }
 
+        String moneda = cmbMoneda.getValue();
+
+        double montoPen = currencyService.convertToPen(montoEnMoneda, moneda);
+
         double saldoAnterior = ingresoService.total(usuarioActual);
-        double nuevoSaldo = saldoAnterior + monto;
+        double nuevoSaldo = saldoAnterior + montoPen;
 
-        String fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String fecha = LocalDate.now().format(F);
 
-        Ingreso ingreso = new Ingreso(fecha, desc, monto, nuevoSaldo, usuarioActual);
+        Ingreso ingreso = new Ingreso(fecha, txtDescripcion.getText(), montoPen, nuevoSaldo, usuarioActual);
 
         ingresoService.guardar(ingreso);
 
@@ -107,11 +118,34 @@ public class IngresoController {
             return;
         }
 
+        String moneda = cmbMoneda.getValue();
+        double montoConvertido = currencyService.convertFromPen(sel.getMonto(), moneda);
+
         txtDescripcion.setText(sel.getDescripcion());
-        txtMonto.setText(String.valueOf(sel.getMonto()));
+        txtMonto.setText(String.format("%.2f", montoConvertido));
 
         ingresoService.eliminar(sel);
         refrescarTabla();
+    }
+
+    private void refrescarTabla() {
+        lista.setAll(ingresoService.listar(usuarioActual));
+        tabla.setItems(lista);
+
+        double totalPen = lista.stream().mapToDouble(Ingreso::getMonto).sum();
+        double totalConv = currencyService.convertFromPen(totalPen, cmbMoneda.getValue());
+
+        lblSaldoIngreso.setText("Total Ingresos: " + simbolo() + String.format("%.2f", totalConv));
+
+        tabla.refresh();
+    }
+
+    private String simbolo() {
+        return switch (cmbMoneda.getValue()) {
+            case "USD" -> "$ ";
+            case "EUR" -> "€ ";
+            default -> "S/ ";
+        };
     }
 
     private void limpiar() {
@@ -126,4 +160,3 @@ public class IngresoController {
         a.show();
     }
 }
-

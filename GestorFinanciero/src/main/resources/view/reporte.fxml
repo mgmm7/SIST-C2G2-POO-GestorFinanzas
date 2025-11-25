@@ -22,14 +22,13 @@
             <Label text="Filtrar por:" style="-fx-font-size:12; -fx-text-fill:#e0b3ff;"/>
             <ComboBox fx:id="cmbCategorias" prefWidth="200" promptText="Seleccione categoría"
                       style="-fx-background-radius: 8;
-                 -fx-border-radius: 8;
-                 -fx-background-color: rgba(133,43,163,0.15);
-                 -fx-border-color: #b366ff;
-                 -fx-border-width: 2;
-                 -fx-text-fill: #ffffff;
-                 -fx-prompt-text-fill: #d580ff;
-                 -fx-padding: 4 10 4 10;"/>
-
+                             -fx-border-radius: 8;
+                             -fx-background-color: rgba(133,43,163,0.15);
+                             -fx-border-color: #b366ff;
+                             -fx-border-width: 2;
+                             -fx-text-fill: #ffffff;
+                             -fx-prompt-text-fill: #d580ff;
+                             -fx-padding: 4 10 4 10;"/>
 
             <HBox spacing="8" alignment="CENTER">
                 <Button fx:id="btnOrden" text="⇅"
@@ -46,12 +45,21 @@
             <Separator prefWidth="200"/>
 
             <Label text="Totales" style="-fx-font-size:12; -fx-text-fill:#e0b3ff;"/>
-            <Label fx:id="lblTotalIngresos" text="Total Ingresos: S/ 0.00"
+            <Label fx:id="lblTotalIngresos" text="Saldo Actual: S/ 0.00"
                    style="-fx-text-fill:#bb86fc; -fx-font-weight:bold;"/>
-            <Label fx:id="lblTotalEgresos" text="Total Egresos: S/ 0.00"
+            <Label fx:id="lblTotalEgresos" text="Gastos Totales: S/ 0.00"
                    style="-fx-text-fill:#bb86fc; -fx-font-weight:bold;"/>
-            <Label fx:id="lblSaldoActual"  text="Saldo: S/ 0.00"
-                   style="-fx-text-fill:#d7b4ff; -fx-font-weight:bold;"/>
+            <!-- lblSaldoActual eliminado -->
+
+            <!-- MONEDA -->
+            <ComboBox fx:id="cbReporteMoneda" prefWidth="200" promptText="Moneda"
+                      style="-fx-background-radius: 8;
+                             -fx-border-radius: 8;
+                             -fx-background-color: rgba(255,255,255,0.1);
+                             -fx-border-color: #bb86fc;
+                             -fx-border-width: 1.5;
+                             -fx-text-fill: white;
+                             -fx-padding: 4 10 4 10;"/>
 
             <Region VBox.vgrow="ALWAYS"/>
             <Label text="(Selecciona un registro para ver detalle)" style="-fx-font-size:11px; -fx-text-fill:#bfb0ff"/>
@@ -74,25 +82,6 @@
                     <TableColumn text="Fecha" fx:id="colFecha"/>
                 </columns>
             </TableView>
-
-            <TitledPane text="Resumen / detalles rápidos" expanded="false" collapsible="true"
-                        style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: #e0b3ff;">
-                <content>
-                    <VBox spacing="6">
-                        <padding>
-                            <Insets top="8" right="8" bottom="8" left="8"/>
-                        </padding>
-                        <Label text="Detalles rápidos del elemento seleccionado:"
-                               style="-fx-font-weight:bold; -fx-text-fill:#d7b4ff;"/>
-                        <TextArea fx:id="txtDetalles" prefRowCount="4" wrapText="true" editable="false"
-                                  style="-fx-background-radius:8; -fx-border-radius:8;
-                                         -fx-background-color: rgba(255,255,255,0.1);
-                                         -fx-border-color: #bb86fc; -fx-border-width:1.5;
-                                         -fx-text-fill: #e0b3ff;"/>
-                    </VBox>
-                </content>
-            </TitledPane>
-
         </VBox>
     </center>
 
@@ -108,7 +97,7 @@
                        style="-fx-font-size:14px; -fx-font-weight:bold; -fx-text-fill:#f3e9ff;"/>
             </StackPane>
 
-            <Label text="Categorias:" style="-fx-font-size:12; -fx-text-fill:#e0b3ff;"/>
+            <Label text="Categorias:" style="-fx-font-size:12px; -fx-text-fill:#e0b3ff;"/>
             <ListView fx:id="lvCategorias" prefHeight="300"
                       style="-fx-background-color: rgba(255,255,255,0.1); -fx-border-color:#bb86fc; -fx-border-width:1.5; -fx-text-fill:#e0b3ff;"/>
 
@@ -129,10 +118,10 @@
                             <Label text="Presupuesto:" GridPane.rowIndex="1" style="-fx-text-fill:#e0b3ff;"/>
                             <Label fx:id="lblDetPresupuesto" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-text-fill:#d7b4ff;"/>
 
-                            <Label text="Limite:" GridPane.rowIndex="2" style="-fx-text-fill:#e0b3ff;"/>
+                            <Label text="Límite:" GridPane.rowIndex="2" style="-fx-text-fill:#e0b3ff;"/>
                             <Label fx:id="lblDetLimite" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-text-fill:#d7b4ff;"/>
 
-                            <Label text="Saldo disponible:" GridPane.rowIndex="3" style="-fx-text-fill:#e0b3ff;"/>
+                            <Label text="Saldo disp.:" GridPane.rowIndex="3" style="-fx-text-fill:#e0b3ff;"/>
                             <Label fx:id="lblDetSaldo" GridPane.rowIndex="3" GridPane.columnIndex="1" style="-fx-text-fill:#d7b4ff;"/>
                         </GridPane>
 

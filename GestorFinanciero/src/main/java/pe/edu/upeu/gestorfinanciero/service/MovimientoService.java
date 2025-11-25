@@ -2,12 +2,16 @@ package pe.edu.upeu.gestorfinanciero.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pe.edu.upeu.gestorfinanciero.model.Categoria;
+import pe.edu.upeu.gestorfinanciero.model.Ingreso;
 import pe.edu.upeu.gestorfinanciero.model.Usuario;
 import pe.edu.upeu.gestorfinanciero.repository.CategoriaRepository;
 import pe.edu.upeu.gestorfinanciero.repository.EgresoRepository;
 import pe.edu.upeu.gestorfinanciero.repository.IngresoRepository;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -32,17 +36,42 @@ public class MovimientoService {
         return categoriaRepository.findByUsuarioOrderByNombreAsc(usuario);
     }
 
-    // Asignar presupuesto (SUMAR)
+    // Asignar presupuesto (SUMA presupuesto + SUMA saldo)
+    // y CREA INGRESO NEGATIVO para restar del total general
+    @Transactional
     public void asignarPresupuesto(String nombre, double monto, Usuario usuario) {
+
+        // 1. Buscar la categoría
         Categoria c = categoriaRepository.findByNombreAndUsuario(nombre, usuario);
-        if (c != null) {
-            c.setPresupuesto(c.getPresupuesto() + monto);
-            c.setSaldoDisponible(c.getSaldoDisponible() + monto);
-            categoriaRepository.save(c);
-        }
+        if (c == null) return;
+
+        // 2. Registrar movimiento como un ingreso negativo
+        double saldoAnterior = ingresoRepository.findByUsuarioOrderByIdDesc(usuario)
+                .stream()
+                .mapToDouble(Ingreso::getMonto)
+                .sum();
+
+        double nuevoSaldo = saldoAnterior - monto;
+
+        Ingreso mov = new Ingreso(
+                LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                "Asignación a categoría: " + nombre,
+                -monto,
+                nuevoSaldo,
+                usuario
+        );
+        mov.setTipo("Asignación");
+        ingresoRepository.save(mov);
+
+        // 3. Actualizar valores dentro de la categoría
+        c.setPresupuesto(c.getPresupuesto() + monto);
+        c.setSaldoDisponible(c.getSaldoDisponible() + monto);
+        categoriaRepository.save(c);
     }
 
+
     // Asignar o editar límite
+    @Transactional
     public void asignarLimite(String nombre, double limite, Usuario usuario) {
         Categoria c = categoriaRepository.findByNombreAndUsuario(nombre, usuario);
         if (c != null) {
@@ -71,6 +100,7 @@ public class MovimientoService {
     }
 
     // Editar categoría
+    @Transactional
     public void editarCategoria(String antiguo, String nuevo, Usuario usuario) {
         Categoria c = categoriaRepository.findByNombreAndUsuario(antiguo, usuario);
         if (c != null) {
@@ -79,8 +109,20 @@ public class MovimientoService {
         }
     }
 
-    // Eliminar categoría
+    @Transactional
     public void eliminarCategoria(String nombre, Usuario usuario) {
+
+        // 1) Eliminar ingresos negativos asociados
+        List<Ingreso> ingresosRelacionados =
+                ingresoRepository.findByUsuarioAndDescripcionContaining(usuario, "Asignación a categoría: " + nombre);
+
+        if (ingresosRelacionados != null && !ingresosRelacionados.isEmpty()) {
+            ingresoRepository.deleteAll(ingresosRelacionados);
+        }
+
+        // 2) Eliminar categoría
         categoriaRepository.deleteByNombreAndUsuario(nombre, usuario);
     }
+
+
 }

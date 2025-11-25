@@ -20,7 +20,6 @@ public class ReporteService {
     private final EgresoService egresoService;
     private final CategoriaService categoriaService;
 
-
     // ============================================================
     //                    MOVIMIENTOS GENERALES
     // ============================================================
@@ -31,58 +30,64 @@ public class ReporteService {
         // INGRESOS DEL USUARIO
         for (Ingreso i : ingresoService.listar(usuario)) {
             lista.add(new MovimientoDto(
-                    "Ingreso",
+                    i.getId(),
+                    i.getTipo(),
                     "General",
                     i.getDescripcion(),
                     i.getMonto(),
-                    i.getFecha()
+                    i.getFecha(),
+                    null
             ));
         }
 
         // EGRESOS DEL USUARIO
         for (Egreso e : egresoService.listar(usuario)) {
             lista.add(new MovimientoDto(
+                    e.getId(),
                     "Egreso",
                     e.getCategoria(),
                     e.getDescripcion(),
                     e.getMonto(),
-                    e.getFecha()
+                    e.getFecha(),
+                    null
             ));
         }
 
-        // orden descendente por ID (fecha más reciente arriba)
         lista.sort(Comparator.comparing(MovimientoDto::getFecha).reversed());
         return lista;
     }
 
-
     // ============================================================
-    //               MOVIMIENTOS POR CATEGORÍA ESPECÍFICA
+    //               MOVIMIENTOS POR CATEGORÍA
     // ============================================================
     public List<MovimientoDto> obtenerMovimientosPorCategoria(Usuario usuario, Categoria categoria) {
 
         List<MovimientoDto> lista = new ArrayList<>();
 
-        // 1. Registra el presupuesto base como "ingreso interno"
+        // 1. Presupuesto base (si lo usas como movimiento)
         if (categoria.getPresupuesto() > 0) {
             lista.add(new MovimientoDto(
+                    null, // No existe ID real
                     "Presupuesto",
                     categoria.getNombre(),
                     "Asignación de presupuesto",
                     categoria.getPresupuesto(),
-                    "N/A"
+                    "N/A",
+                    null
             ));
         }
 
-        // 2. Agregar egresos de esa categoría
+        // 2. Egresos por categoría
         for (Egreso e : egresoService.listar(usuario)) {
             if (e.getCategoria().equals(categoria.getNombre())) {
                 lista.add(new MovimientoDto(
+                        e.getId(),
                         "Egreso",
                         categoria.getNombre(),
                         e.getDescripcion(),
                         e.getMonto(),
-                        e.getFecha()
+                        e.getFecha(),
+                        null
                 ));
             }
         }
@@ -90,7 +95,6 @@ public class ReporteService {
         lista.sort(Comparator.comparing(MovimientoDto::getFecha).reversed());
         return lista;
     }
-
 
     // ============================================================
     //                        TOTALES

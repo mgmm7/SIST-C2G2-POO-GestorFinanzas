@@ -1,10 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml">
-    <children>
-        <Label text="(En construcción)" layoutX="50" layoutY="50"/>
-    </children>
-</AnchorPane>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pe.edu.upeu.gestorfinanciero.controller.MetaController"
+            prefWidth="900" prefHeight="550"
+            style="-fx-background-color: linear-gradient(to bottom right, #110f1b, #1b0e2e, #2b0b45);">
+
+    <top>
+        <Label text="Metas de Ahorro"
+               style="-fx-font-size:18px; -fx-text-fill:#d7b4ff; -fx-padding:10 10 10 10;"/>
+    </top>
+
+    <center>
+        <HBox spacing="12">
+            <padding>
+                <Insets top="12" right="12" bottom="12" left="12"/>
+            </padding>
+
+            <VBox spacing="8" prefWidth="420">
+
+                <HBox spacing="8">
+                    <TextField fx:id="txtNombreMeta" promptText="Nombre meta" prefWidth="160"
+                               style="-fx-background-radius: 8; -fx-border-radius: 8;
+                                      -fx-background-color: rgba(255,255,255,0.1);
+                                      -fx-border-color: #bb86fc; -fx-border-width: 1.5;
+                                      -fx-text-fill: #e0b3ff;"/>
+                    <TextField fx:id="txtObjetivo" promptText="Objetivo" prefWidth="100"
+                               style="-fx-background-radius: 8; -fx-border-radius: 8;
+                                      -fx-background-color: rgba(255,255,255,0.1);
+                                      -fx-border-color: #bb86fc; -fx-border-width: 1.5;
+                                      -fx-text-fill: #e0b3ff;"/>
+
+                    <ComboBox fx:id="cbMetaMoneda" prefWidth="90" promptText="Moneda"
+                              style="-fx-background-radius: 8; -fx-border-radius: 8;
+                                     -fx-background-color: rgba(255,255,255,0.1);
+                                     -fx-border-color: #bb86fc; -fx-border-width: 1.5;
+                                     -fx-text-fill: #e0b3ff;"/>
+
+                    <DatePicker fx:id="dpFechaLimite"/>
+                </HBox>
+
+                <HBox spacing="8">
+                    <Button fx:id="btnRegistrar" text="Registrar" onAction="#registrar"
+                            style="-fx-background-color:#bb86fc; -fx-text-fill:#110f1b; -fx-font-weight: bold;"/>
+                    <Button fx:id="btnEditar" text="Editar" onAction="#editar"
+                            style="-fx-background-color:#bb86fc; -fx-text-fill:#110f1b; -fx-font-weight: bold;"/>
+                    <Button fx:id="btnEliminar" text="Eliminar" onAction="#eliminar"
+                            style="-fx-background-color:#bb86fc; -fx-text-fill:#110f1b; -fx-font-weight: bold;"/>
+                </HBox>
+
+                <TableView fx:id="tablaMetas" prefHeight="420"
+                           style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: #e0b3ff;">
+                    <columns>
+                        <TableColumn fx:id="colNombre" text="Meta" prefWidth="160"/>
+                        <TableColumn fx:id="colObjetivo" text="Objetivo" prefWidth="100"/>
+                        <TableColumn fx:id="colAportado" text="Aportado" prefWidth="100"/>
+                        <TableColumn fx:id="colProgreso" text="Progreso" prefWidth="60"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <VBox spacing="8" prefWidth="460">
+
+                <Label fx:id="lblMetaNombre" text="Seleccione una meta"
+                       style="-fx-font-size:16px; -fx-text-fill:#d7b4ff;"/>
+                <Label fx:id="lblMetaObjetivo" text="" style="-fx-text-fill:#e0b3ff;"/>
+                <Label fx:id="lblMetaAportado" text="" style="-fx-text-fill:#e0b3ff;"/>
+
+                <ProgressBar fx:id="pbMetaGrande" prefWidth="420" progress="0"
+                             style="-fx-accent:#bb86fc;"/>
+
+                <Label text="Historial de aportes"
+                       style="-fx-font-weight:bold; -fx-text-fill:#d7b4ff;"/>
+
+                <TableView fx:id="tablaAportes" prefHeight="300"
+                           style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: #e0b3ff;">
+                    <columns>
+                        <TableColumn fx:id="colApFecha" text="Fecha" prefWidth="90"/>
+                        <TableColumn fx:id="colApDesc" text="Descripción" prefWidth="200"/>
+                        <TableColumn fx:id="colApMonto" text="Monto" prefWidth="80"/>
+                        <TableColumn fx:id="colApEvidencia" text="Evidencia" prefWidth="90"/>
+                    </columns>
+                </TableView>
+
+                <Button fx:id="btnAportar" text="Aportar" onAction="#aportar"
+                        style="-fx-background-color:#bb86fc; -fx-text-fill:#110f1b; -fx-font-weight: bold;"/>
+            </VBox>
+
+        </HBox>
+    </center>
+
+</BorderPane>
+

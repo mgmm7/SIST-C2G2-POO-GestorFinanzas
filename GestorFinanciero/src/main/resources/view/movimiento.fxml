@@ -16,7 +16,13 @@
 
         <Label fx:id="lblSaldoActual" text="Saldo total: S/ 0.00"
                layoutX="680" layoutY="20"
-               style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #bb86fc;"/>
+               style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #c39cff;"/>
+
+        <ComboBox fx:id="cbMoneda" layoutX="540" layoutY="20" prefWidth="120"
+                  promptText="Moneda"
+                  style="-fx-background-radius: 8; -fx-border-radius: 8;
+                         -fx-background-color: rgba(255,255,255,0.1);
+                         -fx-border-color: #c39cff; -fx-border-width: 1.5; -fx-text-fill: white;"/>
 
         <Accordion layoutX="20" layoutY="60" prefWidth="350" prefHeight="350">
             <panes>
@@ -26,10 +32,11 @@
                         <VBox spacing="10" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius:12;">
                             <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
                             <TextField fx:id="txtNuevaCategoria" promptText="Nombre de categoría"
-                                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-background-color: rgba(255,255,255,0.1);
-                                              -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
+                                       style="-fx-background-radius: 8; -fx-border-radius: 8;
+                                              -fx-background-color: rgba(255,255,255,0.1);
+                                              -fx-border-color: #c39cff; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
                             <Button text="Guardar" onAction="#crearCategoria"
-                                    style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
+                                    style="-fx-background-color: #c39cff; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
                         </VBox>
                     </content>
                 </TitledPane>
@@ -39,13 +46,15 @@
                         <VBox spacing="10" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius:12;">
                             <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
                             <ComboBox fx:id="cbxPresupuesto" promptText="Selecciona categoría"
-                                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-background-color: rgba(255,255,255,0.1);
-                                             -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
+                                      style="-fx-background-radius: 8; -fx-border-radius: 8;
+                                             -fx-background-color: rgba(255,255,255,0.1);
+                                             -fx-border-color: #c39cff; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
                             <TextField fx:id="txtPresupuesto" promptText="Monto presupuesto"
-                                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-background-color: rgba(255,255,255,0.1);
-                                              -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
+                                       style="-fx-background-radius: 8; -fx-border-radius: 8;
+                                              -fx-background-color: rgba(255,255,255,0.1);
+                                              -fx-border-color: #c39cff; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
                             <Button text="Asignar" onAction="#asignarPresupuesto"
-                                    style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
+                                    style="-fx-background-color: #c39cff; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
                         </VBox>
                     </content>
                 </TitledPane>
@@ -55,26 +64,28 @@
                         <VBox spacing="10" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius:12;">
                             <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
                             <ComboBox fx:id="cbxLimite" promptText="Selecciona categoría"
-                                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-background-color: rgba(255,255,255,0.1);
-                                             -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
+                                      style="-fx-background-radius: 8; -fx-border-radius: 8;
+                                             -fx-background-color: rgba(255,255,255,0.1);
+                                             -fx-border-color: #c39cff; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
                             <TextField fx:id="txtLimite" promptText="Monto límite"
-                                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-background-color: rgba(255,255,255,0.1);
-                                              -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
+                                       style="-fx-background-radius: 8; -fx-border-radius: 8;
+                                              -fx-background-color: rgba(255,255,255,0.1);
+                                              -fx-border-color: #c39cff; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
                             <Button text="Asignar" onAction="#asignarLimite"
-                                    style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
+                                    style="-fx-background-color: #c39cff; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
                         </VBox>
                     </content>
                 </TitledPane>
 
-                <TitledPane text="Editar / Eliminar Categoría">
+                <TitledPane text="Editar / Ver Categoría">
                     <content>
-                        <VBox spacing="10" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius:12;">
+                        <VBox spacing="10">
                             <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-                            <ComboBox fx:id="cbxEditar" promptText="Selecciona categoría"
-                                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-background-color: rgba(255,255,255,0.1);
-                                             -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
-                            <Button text="Editar o Eliminar" onAction="#editarOCategorias"
-                                    style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
+                            <ComboBox fx:id="cbxCategoriaEditar" promptText="Selecciona categoría"/>
+                            <HBox spacing="8">
+                                <Button text="Editar" onAction="#editarCategoria" style="-fx-background-color: #c39cff; -fx-text-fill: #110f1b;"/>
+                                <Button text="Eliminar" onAction="#eliminarCategoria" style="-fx-background-color:#a946bf; -fx-text-fill:white;"/>
+                            </HBox>
                         </VBox>
                     </content>
                 </TitledPane>
@@ -84,7 +95,7 @@
 
         <TableView fx:id="tablaCategorias" layoutX="400" layoutY="60"
                    prefWidth="470" prefHeight="350"
-                   style="-fx-background-color: rgba(255,255,255,0.05); -fx-table-cell-border-color: #bb86fc; -fx-text-fill: #e0b3ff;">
+                   style="-fx-background-color: rgba(255,255,255,0.05); -fx-table-cell-border-color: #c39cff; -fx-text-fill: #e0b3ff;">
             <columns>
                 <TableColumn fx:id="colNombre" text="Nombre" prefWidth="120"/>
                 <TableColumn fx:id="colPresupuesto" text="Presupuesto" prefWidth="100"/>

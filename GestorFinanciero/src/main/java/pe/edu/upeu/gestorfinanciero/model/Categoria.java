@@ -2,14 +2,17 @@ package pe.edu.upeu.gestorfinanciero.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Data
 @Table(name = "categoria")
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     private String nombre;

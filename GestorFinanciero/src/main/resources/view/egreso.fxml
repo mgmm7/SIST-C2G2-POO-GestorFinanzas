@@ -1,63 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="pe.edu.upeu.gestorfinanciero.controller.EgresoController"
-            prefWidth="650" prefHeight="520"
-            style="-fx-background-color: linear-gradient(to bottom right, #110f1b, #1b0e2e, #2b0b45);">
+<AnchorPane prefHeight="520" prefWidth="650" style="-fx-background-color: linear-gradient(to bottom right, #1b0c2e, #2b0a45, #3c0b5a);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.upeu.gestorfinanciero.controller.EgresoController">
 
     <children>
-        <Label text="Registro de Egresos" layoutX="20" layoutY="15"
-               style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #d7b4ff;"/>
+
+        <Label layoutX="20" layoutY="15" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #e0c2ff;" text="Registro de Egresos" />
 
         <VBox layoutX="20" layoutY="50" spacing="10">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
+            <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
 
             <HBox spacing="10">
-                <Label text="Categoría:" style="-fx-text-fill: #e0b3ff;"/>
-                <ComboBox fx:id="cbxCategoria" prefWidth="180"
-                          style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-background-color: rgba(255,255,255,0.1);
-                                 -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
-                <Label text="Monto:" style="-fx-text-fill: #e0b3ff;"/>
-                <TextField fx:id="txtMonto" promptText="Monto del gasto" prefWidth="120"
-                           style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-background-color: rgba(255,255,255,0.1);
-                                  -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
+                <Label style="-fx-text-fill: #d1b3ff;" text="Categoría:" />
+                <ComboBox fx:id="cbxCategoria" prefWidth="180" style="-fx-background-radius: 8; -fx-border-radius: 8;                                  -fx-background-color: rgba(255,255,255,0.1);                                  -fx-border-color: #d1b3ff; -fx-border-width: 1.5;                                  -fx-text-fill: #e0b3ff;" />
+
+                <Label style="-fx-text-fill: #d1b3ff;" text="Monto:" />
+                <TextField fx:id="txtMonto" prefWidth="120" promptText="Monto del gasto" style="-fx-background-radius: 8; -fx-border-radius: 8;                                   -fx-background-color: rgba(255,255,255,0.1);                                   -fx-border-color: #d1b3ff; -fx-border-width: 1.5;                                   -fx-text-fill: #e0b3ff;" />
+
+                <ComboBox fx:id="cmbMoneda" prefWidth="150" promptText="Moneda" style="-fx-background-radius: 8; -fx-border-radius: 8;                                  -fx-background-color: rgba(255,255,255,0.1);                                  -fx-border-color: #d1b3ff; -fx-border-width: 1.5;                                  -fx-text-fill: #e0b3ff;" />
             </HBox>
 
             <HBox spacing="10">
-                <Label text="Descripción:" style="-fx-text-fill: #e0b3ff;"/>
-                <TextField fx:id="txtDescripcion" promptText="Motivo o detalle" prefWidth="320"
-                           style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-background-color: rgba(255,255,255,0.1);
-                                  -fx-border-color: #bb86fc; -fx-border-width: 1.5; -fx-text-fill: #e0b3ff;"/>
+                <Label style="-fx-text-fill: #d1b3ff;" text="Descripción:" />
+                <TextField fx:id="txtDescripcion" prefWidth="320" promptText="Motivo o detalle" style="-fx-background-radius: 8; -fx-border-radius: 8;                                   -fx-background-color: rgba(255,255,255,0.1);                                   -fx-border-color: #d1b3ff; -fx-border-width: 1.5;                                   -fx-text-fill: #e0b3ff;" />
             </HBox>
 
             <HBox spacing="10">
-                <Button text="Registrar" onAction="#registrar"
-                        style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
-                <Button text="Editar" onAction="#editar"
-                        style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
-                <Button text="Eliminar" onAction="#eliminar"
-                        style="-fx-background-color: #bb86fc; -fx-text-fill: #110f1b; -fx-font-weight: bold;"/>
+                <Button onAction="#registrar" style="-fx-background-color: #d1b3ff; -fx-text-fill: #1b0c2e; -fx-font-weight: bold;" text="Registrar" />
+                <Button onAction="#editar" style="-fx-background-color: #d1b3ff; -fx-text-fill: #1b0c2e; -fx-font-weight: bold;" text="Editar" />
+                <Button onAction="#eliminar" style="-fx-background-color: #d1b3ff; -fx-text-fill: #1b0c2e; -fx-font-weight: bold;" text="Eliminar" />
             </HBox>
 
-            <Label fx:id="lblSaldoEgreso" text="Total gastado: S/ 0.00"
-                   style="-fx-font-weight: bold; -fx-text-fill: #d7b4ff;"/>
+            <HBox spacing="20">
+                <Label fx:id="lblPresupuestoRestante" style="-fx-font-weight: bold; -fx-text-fill: #e0c2ff;" text="Presupuesto restante: S/ 0.00" />
+                <Label fx:id="lblLimiteCategoria" style="-fx-font-weight: bold; -fx-text-fill: #e0c2ff;" text="Límite: S/ 0.00" />
+   
+               <Label fx:id="lblSaldoEgreso" style="-fx-font-weight: bold; -fx-text-fill: #e0c2ff;" text="Total gastado: S/ 0.00" />
+            </HBox>
         </VBox>
 
-        <TableView fx:id="tabla" layoutX="20" layoutY="210"
-                   prefWidth="600" prefHeight="280"
-                   style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: #e0b3ff;">
+        <TableView fx:id="tabla" layoutX="20" layoutY="210" prefHeight="280" prefWidth="600" style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: #e0b3ff;">
             <columns>
-                <TableColumn fx:id="colFecha" text="Fecha" prefWidth="100"/>
-                <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="180"/>
-                <TableColumn fx:id="colMonto" text="Monto (S/)" prefWidth="120"/>
-                <TableColumn fx:id="colSaldo" text="Saldo" prefWidth="120"/>
+                <TableColumn fx:id="colFecha" prefWidth="100" text="Fecha" />
+                <TableColumn fx:id="colDescripcion" prefWidth="180" text="Descripción" />
+                <TableColumn fx:id="colMonto" prefWidth="120" text="Monto" />
+                <TableColumn fx:id="colSaldo" prefWidth="120" text="Saldo" />
             </columns>
         </TableView>
+
     </children>
 </AnchorPane>

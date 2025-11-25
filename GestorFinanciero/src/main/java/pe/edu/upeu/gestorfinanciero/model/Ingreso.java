@@ -2,24 +2,25 @@ package pe.edu.upeu.gestorfinanciero.model;
 
 import jakarta.persistence.*;
 import javafx.beans.property.*;
-import java.time.LocalDate;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import pe.edu.upeu.gestorfinanciero.model.Usuario;
-
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "ingreso")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Ingreso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     private String fecha;
     private String descripcion;
     private double monto;
     private double saldo;
+
+    // NUEVO: tipo de ingreso (normal, asignación, meta…)
+    private String tipo = "Ingreso";
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
@@ -33,10 +34,10 @@ public class Ingreso {
         this.monto = monto;
         this.saldo = saldo;
         this.usuario = usuario;
+        this.tipo = "Ingreso"; // por defecto
     }
-    public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 
+    // ==== GETTERS & SETTERS ====
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -52,9 +53,16 @@ public class Ingreso {
     public double getSaldo() { return saldo; }
     public void setSaldo(double saldo) { this.saldo = saldo; }
 
-    // Propiedades JavaFX
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
+
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+
+    // ==== PROPIEDADES JAVAFX ====
     public StringProperty fechaProperty() { return new SimpleStringProperty(fecha); }
     public StringProperty descripcionProperty() { return new SimpleStringProperty(descripcion); }
     public DoubleProperty montoProperty() { return new SimpleDoubleProperty(monto); }
     public DoubleProperty saldoProperty() { return new SimpleDoubleProperty(saldo); }
+    public StringProperty tipoProperty() { return new SimpleStringProperty(tipo); }
 }
